@@ -11,6 +11,7 @@
 	},
 	"_testing": "./tests/dylanTests",
 	"_bundling": [
-		{ "name": "./dylanMain" }
+		{ "name": "./dylanMain" },
+		{ "name": "./dylanWorker" }
 	]
 }
