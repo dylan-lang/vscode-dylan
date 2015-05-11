@@ -10,6 +10,12 @@ define(["require", "exports"], function (require, exports) {
         lineComment: '//',
         blockCommentStart: '/*',
         blockCommentEnd: '*/',
+        autoClosingPairs: [
+          ['{', '}'],
+          ['[', ']'],
+          ['(', ')'],
+          ['"', '"'],
+          ['\'', '\'']],
         keywords: [
             'begin',
             'constant',
