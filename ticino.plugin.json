@@ -1,0 +1,16 @@
+{
+	"pluginId": "vs.language.dylan",
+	"activationEvents": ["textModel:dylan"],
+	"mainModule": "./dylanMain",
+	"contributes": {
+		"language": [{
+			"id": "dylan",
+			"extensions": [ ".dylan", ".lid", ".hdp" ],
+			"aliases": [ "Dylan", "dylan" ]
+		}]
+	},
+	"_testing": "./tests/dylanTests",
+	"_bundling": [
+		{ "name": "./dylanMain" }
+	]
+}
