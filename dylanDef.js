@@ -73,13 +73,19 @@ define(["require", "exports"], function (require, exports) {
             { open: '[', close: ']', token: 'delimiter.bracket' },
             { open: '(', close: ')', token: 'delimiter.parenthesis' }
         ],
+        escapes: /\\(?:[\\"'abefnrt0]|<[0-9A-Za-z]>)/,
         tokenizer: {
             root: [
                 [/\s+/, 'white'],
                 { include: '@numbers' },
                 [/[,;]/, 'delimiter'],
                 [/[{}\[\]()]/, '@brackets'],
-                [/[a-zA-Z]\w*/, {
+                [/"([^"\\]|\\.)*$/, 'string.invalid'],
+                [/"/, 'string', '@string'],
+                [/'[^\\']'/, 'string'],
+                [/(')(@escapes)(')/, ['string', 'string.escape', 'string']],
+                [/'/, 'string.invalid'],
+                [/[a-zA-Z0-9]\w*/, {
                     cases: {
                         '@flowKeywords': 'keyword.flow',
                         '@keywords': 'keyword',
@@ -95,6 +101,12 @@ define(["require", "exports"], function (require, exports) {
                 [/#b[01]+/, 'number.binary'],
                 [/(\+|-)?[\d]+/, 'number.decimal'],
                 [/(\+|-)?(([\d]+\.?[\d]*)|(\.[\d]+))((e|E)(\+|-)?[\d]+)?/, 'number'],
+            ],
+            string: [
+                [/[^\\"]+/, 'string'],
+                [/@escapes/, 'string.escape'],
+                [/\\./, 'string.escape.invalid'],
+                [/"/, 'string', '@pop'],
             ],
         }
     };
