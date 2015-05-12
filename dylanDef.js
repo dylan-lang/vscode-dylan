@@ -75,8 +75,10 @@ define(["require", "exports"], function (require, exports) {
         ],
         tokenizer: {
             root: [
-                [/[{}\[\]()]/, '@brackets'],
                 [/\s+/, 'white'],
+                { include: '@numbers' },
+                [/[,;]/, 'delimiter'],
+                [/[{}\[\]()]/, '@brackets'],
                 [/[a-zA-Z]\w*/, {
                     cases: {
                         '@flowKeywords': 'keyword.flow',
@@ -86,6 +88,13 @@ define(["require", "exports"], function (require, exports) {
                         '@default': 'identifier'
                     }
                 }]
+            ],
+            numbers: [
+                [/#x([abcdef]|[ABCDEF]|\d)+/, 'number.hex'],
+                [/#o[01234567]+/, 'number.octal'],
+                [/#b[01]+/, 'number.binary'],
+                [/(\+|-)?[\d]+/, 'number.decimal'],
+                [/(\+|-)?(([\d]+\.?[\d]*)|(\.[\d]+))((e|E)(\+|-)?[\d]+)?/, 'number'],
             ],
         }
     };
