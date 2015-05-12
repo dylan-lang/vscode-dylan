@@ -6,6 +6,7 @@ define(["require", "exports"], function (require, exports) {
         name: 'dylan',
         mimeTypes: [],
         fileExtensions: ['.dylan', '.lid', '.hdp'],
+        ignoreCase: true,
         defaultToken: '',
         lineComment: '//',
         blockCommentStart: '/*',
