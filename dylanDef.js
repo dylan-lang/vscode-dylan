@@ -85,6 +85,8 @@ define(["require", "exports"], function (require, exports) {
                 [/'[^\\']'/, 'string'],
                 [/(')(@escapes)(')/, ['string', 'string.escape', 'string']],
                 [/'/, 'string.invalid'],
+                [/\/\*/, 'comment.block', '@comment'],
+                [/\/\/.*$/, 'comment.line'],
                 [/[a-zA-Z0-9]\w*/, {
                     cases: {
                         '@flowKeywords': 'keyword.flow',
@@ -107,6 +109,12 @@ define(["require", "exports"], function (require, exports) {
                 [/@escapes/, 'string.escape'],
                 [/\\./, 'string.escape.invalid'],
                 [/"/, 'string', '@pop'],
+            ],
+            comment: [
+                [/[^\/*]+/, 'comment.block'],
+                [/\/\*/, 'comment.block', '@comment'],
+                [/\*\//, 'comment.block', '@pop'],
+                [/[\/*]/, 'comment.block']
             ],
         }
     };
