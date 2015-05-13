@@ -7,6 +7,7 @@ define(["require", "exports"], function (require, exports) {
         mimeTypes: [],
         fileExtensions: ['.dylan', '.lid', '.hdp'],
         ignoreCase: true,
+        editorOptions: { tabSize: 2, insertSpaces: true },
         defaultToken: '',
         lineComment: '//',
         blockCommentStart: '/*',
