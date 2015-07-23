@@ -5,7 +5,7 @@
 	"contributes": {
 		"language": [{
 			"id": "dylan",
-			"extensions": [ ".dylan", ".lid", ".hdp" ],
+			"extensions": [ ".dylan", ".lid", ".hdp", ".intr" ],
 			"aliases": [ "Dylan", "dylan" ]
 		}]
 	},
