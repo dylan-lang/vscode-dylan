@@ -19,7 +19,7 @@ define(["require", "exports"], function (require, exports) {
         'documentationLabel': '',
         'codeSnippet': [
           'block ({{return}})\n',
-          '  {{}}\n',
+          '  {{body}}\n',
           'end;\n'
         ].join('')
       },
@@ -29,7 +29,7 @@ define(["require", "exports"], function (require, exports) {
         'documentationLabel': '',
         'codeSnippet': [
           'define class <{{class}}> (<{{object}}>)\n',
-          '  {{}}\n',
+          '  {{body}}\n',
           'end class <{{class}}>;\n'
         ].join('')
       },
@@ -37,15 +37,15 @@ define(["require", "exports"], function (require, exports) {
         'label': 'define constant',
         'type': 'snippet',
         'documentationLabel': '',
-        'codeSnippet': 'define constant \${{}} = {{}};\n'
+        'codeSnippet': 'define constant \${{constant}} = {{value}};\n'
       },
       {
         'label': 'define function',
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'define function {{function}} ({{}}) => ({{}})\n',
-          '  {{}}\n',
+          'define function {{function}} ({{args}}) => ({{value}})\n',
+          '  {{body}}\n',
           'end function {{function}};\n'
         ].join('')
       },
@@ -53,15 +53,15 @@ define(["require", "exports"], function (require, exports) {
         'label': 'define generic',
         'type': 'snippet',
         'documentationLabel': '',
-        'codeSnippet': 'define generic {{}} ({{}}) => ({{}});\n'
+        'codeSnippet': 'define generic {{generic}} ({{args}}) => ({{value}});\n'
       },
       {
         'label': 'define method',
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'define method {{method}} ({{}}) => ({{}})\n',
-          '  {{}}\n',
+          'define method {{method}} ({{args}}) => ({{value}})\n',
+          '  {{body}}\n',
           'end method {{method}};\n'
         ].join('')
       },
@@ -70,8 +70,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'define objc-class {{}} ({{}}) => {{}}\n',
-          '  {{}}\n',
+          'define objc-class {{class-name}} ({{super-class}}) => {{objective-c-class}}\n',
+          '  {{body}}\n',
           'end objc-class;\n'
         ].join('')
       },
@@ -80,9 +80,9 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'define objc-method {{}} ({{}}) => ({{}})\n',
-          '  c-signature: ({{}}) => ({{}})\n',
-          '  {{}}\n',
+          'define objc-method {{method}} ({{args}}) => ({{value}})\n',
+          '  c-signature: ({{c-args}}) => ({{c-value}})\n',
+          '  {{body}}\n',
           'end objc-method;\n'
         ].join('')
       },
@@ -91,8 +91,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'define suite {{}} ()\n',
-          '  {{}};\n',
+          'define suite {{suite-name}} ()\n',
+          '  {{body}};\n',
           'end suite;\n'
         ].join('')
       },
@@ -101,8 +101,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'define test {{}} ()\n',
-          '  {{}};\n',
+          'define test {{test-name}} ()\n',
+          '  {{body}};\n',
           'end test;\n'
         ].join('')
       },
@@ -110,21 +110,21 @@ define(["require", "exports"], function (require, exports) {
         'label': 'define thread variable',
         'type': 'snippet',
         'documentationLabel': '',
-        'codeSnippet': 'define thread variable *{{}}* = {{}};\n'
+        'codeSnippet': 'define thread variable *{{variable}}* = {{value}};\n'
       },
       {
         'label': 'define variable',
         'type': 'snippet',
         'documentationLabel': '',
-        'codeSnippet': 'define variable *{{}}* = {{}};\n'
+        'codeSnippet': 'define variable *{{variable}}* = {{value}};\n'
       },
       {
         'label': 'for statement',
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'for ({{}})\n',
-          '  {{}}\n',
+          'for ({{loop-condition}})\n',
+          '  {{body}}\n',
           'end for;\n'
         ].join('')
       },
@@ -133,10 +133,10 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'for ({{}})\n',
-          '  {{}}\n',
+          'for ({{loop-condition}})\n',
+          '  {{loop-body}}\n',
           'finally\n',
-          '  {{}}',
+          '  {{finally-body}}',
           'end for;\n'
         ].join('')
       },
@@ -145,8 +145,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'for ({{}} in {{}})\n',
-          '  {{}}\n',
+          'for ({{var}} in {{collection}})\n',
+          '  {{body}}\n',
           'end for;\n'
         ].join('')
       },
@@ -155,8 +155,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'if ({{}})\n',
-          '  {{}}\n',
+          'if ({{if-condition}})\n',
+          '  {{body}}\n',
           'end if;\n'
         ].join('')
       },
@@ -165,10 +165,10 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'if ({{}})\n',
-          '  {{}}\n',
-          'elseif ({{}})\n',
-          '  {{}}\n',
+          'if ({{if-condition}})\n',
+          '  {{true-body}}\n',
+          'elseif ({{alternate-condition}})\n',
+          '  {{false-body}}\n',
           'end if;\n'
         ].join('')
       },
@@ -177,10 +177,10 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'if ({{}})\n',
-          '  {{}}\n',
+          'if ({{if-condition}})\n',
+          '  {{true-body}}\n',
           'else\n',
-          '  {{}}',
+          '  {{false-body}}',
           'end if;\n'
         ].join('')
       },
@@ -188,21 +188,21 @@ define(["require", "exports"], function (require, exports) {
         'label': 'let statement',
         'type': 'snippet',
         'documentationLabel': '',
-        'codeSnippet': 'let {{}} = {{}};\n'
+        'codeSnippet': 'let {{binding}} = {{value}};\n'
       },
       {
         'label': 'let (typed) statement',
         'type': 'snippet',
         'documentationLabel': '',
-        'codeSnippet': 'let {{}} :: {{}} = {{}};\n'
+        'codeSnippet': 'let {{binding}} :: {{type}} = {{value}};\n'
       },
       {
         'label': 'unless statement',
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'unless ({{}})\n',
-          '  {{}}\n',
+          'unless ({{condition}})\n',
+          '  {{body}}\n',
           'end unless;\n'
         ].join('')
       },
@@ -211,8 +211,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'until ({{}})\n',
-          '  {{}}\n',
+          'until ({{condition}})\n',
+          '  {{body}}\n',
           'end until;\n'
         ].join('')
       },
@@ -221,8 +221,8 @@ define(["require", "exports"], function (require, exports) {
         'type': 'snippet',
         'documentationLabel': '',
         'codeSnippet': [
-          'while ({{}})\n',
-          '  {{}}\n',
+          'while ({{condition}})\n',
+          '  {{body}}\n',
           'end while;\n'
         ].join('')
       }
