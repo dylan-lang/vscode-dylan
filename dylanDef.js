@@ -103,7 +103,7 @@ define(["require", "exports"], function (require, exports) {
                 [/#o[01234567]+/, 'number.octal'],
                 [/#b[01]+/, 'number.binary'],
                 [/(\+|-)?[\d]+/, 'number.decimal'],
-                [/(\+|-)?(([\d]+\.?[\d]*)|(\.[\d]+))((e|E)(\+|-)?[\d]+)?/, 'number'],
+                [/(\+|-)?(([\d]+\.?[\d]*)|(\.[\d]+))(([dDeEsSxS])(\+|-)?[\d]+)?/, 'number'],
             ],
             string: [
                 [/[^\\"]+/, 'string'],
