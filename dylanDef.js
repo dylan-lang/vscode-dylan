@@ -1,11 +1,8 @@
-/// <reference path="../declares.d.ts" />
 'use strict';
 define(["require", "exports"], function (require, exports) {
     exports.language = {
         displayName: 'Dylan',
         name: 'dylan',
-        mimeTypes: [],
-        fileExtensions: ['.dylan', '.lid', '.hdp', '.intr'],
         ignoreCase: true,
         editorOptions: { tabSize: 2, insertSpaces: true },
         defaultToken: '',

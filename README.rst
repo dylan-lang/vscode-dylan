@@ -5,10 +5,10 @@ This is just preliminary and unofficial support for the Microsoft
 Visual Code editor.
 
 To use it, clone this repository and either place it within
-the plugins directory or symlink it into there.
+the extensions directory or symlink it into there.
 
-On Mac OS X, the plugins directory can be found in::
+On Mac OS X and Linux, the extensions directory is::
 
-    Visual Studio Code.app/Contents/Resources/app/plugins
+    ~/.vscode/extensions/
 
 Contributions and further extensions are welcome!

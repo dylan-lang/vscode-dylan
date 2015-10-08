@@ -1,0 +1,104 @@
+{
+  ".source.dylan": {
+    "<integer>": {
+      "prefix": "int",
+      "body": "<integer>"
+    },
+    "<string>": {
+      "prefix": "str",
+      "body": "<string>"
+    },
+    "block": {
+      "prefix": "block",
+      "body": "block (${1:return})\n  $2\nend;"
+    },
+    "define class": {
+      "prefix": "defcl",
+      "body": "define class <$1> (<${2:object}>)\n  $3\nend class;\n"
+    },
+    "define constant": {
+      "prefix": "defco",
+      "body": "define constant $$1 = $2;\n"
+    },
+    "define function": {
+      "prefix": "deff",
+      "body": "define function $1 ($2) => ($3)\n  $4\nend function;\n"
+    },
+    "define generic": {
+      "prefix": "defg",
+      "body": "define generic $1 ($2) => ($3);\n"
+    },
+    "define method": {
+      "prefix": "defm",
+      "body": "define method $1 ($2) => ($3)\n  $4\nend method;\n"
+    },
+    "define objc-class": {
+      "prefix": "defoc",
+      "body": "define objc-class $1 ($2) => $3\n  $4\nend objc-class;\n"
+    },
+    "define objc-method": {
+      "prefix": "defom",
+      "body": "define objc-method $1 ($2) => ($3)\n  c-signature: ($4) => ($5)\n  $6\nend objc-method;\n"
+    },
+    "define suite": {
+      "prefix": "defs",
+      "body": "define suite $1 ()\n  $2;\nend suite;\n"
+    },
+    "define test": {
+      "prefix": "deft",
+      "body": "define test $1 ()\n  $2;\nend test;\n"
+    },
+    "define thread variable": {
+      "prefix": "deftv",
+      "body": "define thread variable *$1* = $2;\n"
+    },
+    "define variable": {
+      "prefix": "defv",
+      "body": "define variable *$1* = $2;\n"
+    },
+    "for statement": {
+      "prefix": "for",
+      "body": "for ($1)\n  $2\nend for;\n"
+    },
+    "for/finally statement": {
+      "prefix": "forf",
+      "body": "for ($1)\n  $2\nfinally\n  $3end for;\n"
+    },
+    "for statement (in)": {
+      "prefix": "fori",
+      "body": "for ($1 in $2)\n  $3\nend for;\n"
+    },
+    "if statement": {
+      "prefix": "if",
+      "body": "if ($1)\n  $2\nend if;\n"
+    },
+    "if/elseif statement": {
+      "prefix": "ifei",
+      "body": "if ($1)\n  $2\nelseif ($3)\n  $4\nend if;\n"
+    },
+    "if/else statement": {
+      "prefix": "ifel",
+      "body": "if ($1)\n  $2\nelse\n  $3end if;\n"
+    },
+    "let statement": {
+      "prefix": "let",
+      "body": "let $1 = $2;\n"
+    },
+    "let (typed) statement": {
+      "prefix": "lett",
+      "body": "let $1 :: $2 = $3;\n"
+    },
+    "unless statement": {
+      "prefix": "unless",
+      "body": "unless ($1)\n  $2\nend unless;\n"
+    },
+    "until statement": {
+      "prefix": "until",
+      "body": "until ($1)\n  $2\nend until;\n"
+    },
+    "while statement": {
+      "prefix": "while",
+      "body": "while ($1)\n  $2\nend while;\n"
+    }
+  }
+}
