@@ -1,7 +1,7 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
@@ -40,6 +40,10 @@
       "language": "dylan-lid",
       "scopeName": "source.lid",
       "path": "./syntaxes/lid.tmLanguage"
+    }],
+    "snippets": [{
+      "language": "dylan",
+      "path": "./snippets/dylan.json"
     }]
   }
 }
