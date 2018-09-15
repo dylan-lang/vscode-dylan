@@ -47,11 +47,11 @@
     "grammars": [{
       "language": "dylan",
       "scopeName": "source.dylan",
-      "path": "./syntaxes/dylan.tmLanguage"
+      "path": "./syntaxes/dylan.tmLanguage.json"
     },{
       "language": "dylan-lid",
       "scopeName": "source.lid",
-      "path": "./syntaxes/lid.tmLanguage"
+      "path": "./syntaxes/lid.tmLanguage.json"
     }],
     "snippets": [{
       "language": "dylan",
