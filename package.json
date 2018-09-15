@@ -1,7 +1,7 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
