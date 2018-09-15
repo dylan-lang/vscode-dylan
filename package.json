@@ -1,7 +1,7 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
@@ -13,8 +13,8 @@
   },
   "homepage": "https://github.com/dylan-lang/vscode-dylan/blob/master/README.md",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/dylan-lang/vscode-dylan.git"
+    "type": "git",
+    "url": "https://github.com/dylan-lang/vscode-dylan.git"
   },
   "categories": [
     "Languages",
@@ -33,29 +33,48 @@
     "onLanguage:dylan"
   ],
   "contributes": {
-    "languages": [{
-      "id": "dylan",
-      "aliases": ["Dylan", "dylan"],
-      "extensions": [".dylan", ".intr"],
-      "configuration": "./dylan.configuration.json"
-    },{
-      "id": "dylan-lid",
-      "aliases": ["Dylan LID file"],
-      "extensions": [".lid", ".hdp"],
-      "configuration": ".lid.configuration.json"
-    }],
-    "grammars": [{
-      "language": "dylan",
-      "scopeName": "source.dylan",
-      "path": "./syntaxes/dylan.tmLanguage.json"
-    },{
-      "language": "dylan-lid",
-      "scopeName": "source.lid",
-      "path": "./syntaxes/lid.tmLanguage.json"
-    }],
-    "snippets": [{
-      "language": "dylan",
-      "path": "./snippets/dylan.json"
-    }]
+    "languages": [
+      {
+        "id": "dylan",
+        "aliases": [
+          "Dylan",
+          "dylan"
+        ],
+        "extensions": [
+          ".dylan",
+          ".intr"
+        ],
+        "configuration": "./dylan.configuration.json"
+      },
+      {
+        "id": "dylan-lid",
+        "aliases": [
+          "Dylan LID file"
+        ],
+        "extensions": [
+          ".lid",
+          ".hdp"
+        ],
+        "configuration": ".lid.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dylan",
+        "scopeName": "source.dylan",
+        "path": "./syntaxes/dylan.tmLanguage.json"
+      },
+      {
+        "language": "dylan-lid",
+        "scopeName": "source.lid",
+        "path": "./syntaxes/lid.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "dylan",
+        "path": "./snippets/dylan.json"
+      }
+    ]
   }
 }
