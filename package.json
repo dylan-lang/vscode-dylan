@@ -1,7 +1,7 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
@@ -17,7 +17,7 @@
     "url": "https://github.com/dylan-lang/vscode-dylan.git"
   },
   "categories": [
-    "Languages",
+    "Programming Languages",
     "Snippets"
   ],
   "main": "./out/src/dylanMain",
@@ -26,8 +26,8 @@
     "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
   },
   "devDependencies": {
-    "typescript": "^1.6.2",
-    "vscode": "0.10.x"
+    "typescript": "^3.1.6",
+    "vscode": "^0.10.x"
   },
   "activationEvents": [
     "onLanguage:dylan"
