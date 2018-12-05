@@ -15,7 +15,7 @@
           "name": "punctuation.separator.key-value.mail"
         }
       },
-      "end": "^(?![ \\t\\v])",
+      "end": "^|\\s*|$",
       "name": "meta.header.mail"
     },
     {
