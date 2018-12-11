@@ -12,7 +12,7 @@
       "stopOnEntry": false,
       "sourceMaps": true,
       "outFiles": [
-        "out/src/dylanMain.ts1"
+        "out/src/dylanMain.ts"
       ],
       "preLaunchTask": "npm: compile"
     },
