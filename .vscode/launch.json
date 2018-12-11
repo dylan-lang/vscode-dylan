@@ -30,7 +30,7 @@
       "outFiles": [
         "out/test/dylanMain.test.ts"
       ],
-      "preLaunchTask": "npm"
+      "preLaunchTask": "npm: compile"
     }
   ]
 }
