@@ -30,17 +30,16 @@
     "typescript": "^4.2.3"
     "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.7",
-    "mocha": "^8.2.1",
-    "typescript": "^4.0.5",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
-    "eslint": "^7.1.0"
+    "eslint": "^7.1.0",
+    "mocha": "^8.2.1",
+    "typescript": "^4.0.5"
   },
   "activationEvents": [
     "onLanguage:dylan"
   ],
   "contributes": {
-    
     "problemMatchers": [
       {
         "name": "dylan-compiler-problems",

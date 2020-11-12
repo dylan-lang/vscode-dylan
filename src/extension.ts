@@ -10,14 +10,12 @@ export function GetChannel(): vscode.OutputChannel {
     }
     return channel;
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function activate(_context: vscode.ExtensionContext): void {
     GetChannel().appendLine('Activating');
-    const workspaceRoot = vscode.workspace.rootPath;
-    if (!workspaceRoot) {
-        return;
-    }
+    
 
-    dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider(workspaceRoot));
+    dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider());
 }
 
 export function deactivate(): void {
