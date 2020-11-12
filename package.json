@@ -39,33 +39,21 @@
     "onLanguage:dylan"
   ],
   "contributes": {
+    
     "problemMatchers": [
       {
-        "name": "dylan-compiler",
+        "name": "dylan-compiler-problems",
         "owner": "dylan",
         "fileLocation": "autoDetect",
         "pattern": {
-          "regexp": "^(.*):(\\d+)\\.(\\d+)-(\\d+):\\s+(.*)\\s-\\s(.*)$",
-          "severity": 5,
+          "regexp": "^(.*):(\\d+)\\.(\\d+)-((\\d+)\\.)?(\\d+):\\s+(.*)\\s-\\s(.*)$",
           "file": 1,
           "line": 2,
           "column": 3,
-          "endColumn": 4,
-          "message": 6
-        }
-      },
-      {
-        "owner": "dylan",
-        "fileLocation": "autoDetect",
-        "pattern": {
-          "regexp": "^(.*):(\\d+)\\.(\\d+)-(\\d+)\\.(\\d+):\\s+(.*)\\s-\\s(.*)$",
-          "severity": 6,
-          "file": 1,
-          "line": 2,
-          "endLine": 4,
-          "column": 3,
-          "endColumn": 5,
-          "message": 7
+          "endLine": 5,
+          "endColumn": 6,
+          "severity": 7,
+          "message": 8
         }
       }
     ],

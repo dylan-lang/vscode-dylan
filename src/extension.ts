@@ -4,7 +4,7 @@ import { DylanTaskProvider } from './dylanTaskProvider';
 let dylanTaskProvider: vscode.Disposable | undefined;
 
 let channel: vscode.OutputChannel | undefined;
-export function GetChannel() : vscode.OutputChannel {
+export function GetChannel(): vscode.OutputChannel {
     if (!channel) {
         channel = vscode.window.createOutputChannel('DYLAN');
     }
@@ -17,7 +17,7 @@ export function activate(_context: vscode.ExtensionContext): void {
         return;
     }
 
-    dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider());
+    dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider(workspaceRoot));
 }
 
 export function deactivate(): void {
