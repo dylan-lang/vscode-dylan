@@ -30,12 +30,7 @@ interface DylanTaskDefinition extends vscode.TaskDefinition {
     project: string; // the project name
 }
 
-async function scanForProjectFiles(): Promise<vscode.Uri[]> {
-    // This would be easier if we could use fs/promise in VSCode.
-    return vscode.workspace.findFiles("*.lid", "_build");
-}
-
-function projectFileToTask(p: vscode.Uri): vscode.Task {
+function projectUriToTask(p: vscode.Uri): vscode.Task {
 
     const project = path.basename(p.fsPath, ".lid");
     const compileTask = new vscode.Task({
@@ -53,5 +48,6 @@ function projectFileToTask(p: vscode.Uri): vscode.Task {
 }
 
 async function scanWorkspacesForProjects(): Promise<vscode.Task[]> {
-    return (await scanForProjectFiles()).map(projectFileToTask);
+    return vscode.workspace.findFiles("*.lid", "_build")
+        .then(uris => uris.map(projectUriToTask));
 }
