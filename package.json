@@ -20,6 +20,7 @@
     "Programming Languages",
     "Snippets"
   ],
+  "keywords": ["dylan"],
   "main": "./out/extension",
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
@@ -37,7 +38,8 @@
     "typescript": "^4.0.5"
   },
   "activationEvents": [
-    "onLanguage:dylan"
+    "onLanguage:dylan",
+    "onCommand:workbench.action.tasks.runTask"
   ],
   "contributes": {
     "configuration":{
