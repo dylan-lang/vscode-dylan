@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
-import * as fs from 'fs'
 import * as path from 'path'
+import { get_compiler } from './extension';
 
 // See https://github.com/microsoft/vscode-extension-samples/blob/master/task-provider-sample/src/rakeTaskProvider.ts
 export class DylanTaskProvider implements vscode.TaskProvider {
@@ -20,7 +20,7 @@ export class DylanTaskProvider implements vscode.TaskProvider {
             vscode.TaskScope.Workspace,
             project,
             DylanTaskProvider.Type,
-            new vscode.ProcessExecution("dylan-compiler", ["-build", project]),
+            new vscode.ProcessExecution(get_compiler(), ["-build", project]),
             task.problemMatchers
         );
     }
@@ -30,29 +30,22 @@ interface DylanTaskDefinition extends vscode.TaskDefinition {
     project: string; // the project name
 }
 
-async function scanForProjectFiles(path: string): Promise<string[]> {
+async function scanForProjectFiles(): Promise<vscode.Uri[]> {
     // This would be easier if we could use fs/promise in VSCode.
-    return new Promise<string[]>((resolve, reject) => {
-        fs.readdir(path, (err, files) => {
-            if (err) { reject(err); }
-            else {
-                const projectFiles = files.filter(s => s.endsWith(".lid"));
-                resolve(projectFiles);
-            }
-        })
-    })
+    return vscode.workspace.findFiles("*.lid", "_build");
 }
 
-function projectFileToTask(p: string, ws?: vscode.WorkspaceFolder): vscode.Task {
-    const project = path.basename(p, ".lid");
+function projectFileToTask(p: vscode.Uri): vscode.Task {
+
+    const project = path.basename(p.fsPath, ".lid");
     const compileTask = new vscode.Task({
         type: DylanTaskProvider.Type,
         project: project
     },
-        ws || vscode.TaskScope.Workspace,
+        vscode.TaskScope.Workspace,
         project,
         DylanTaskProvider.Type,
-        new vscode.ProcessExecution("dylan-compiler", ["-build", project]),
+        new vscode.ProcessExecution(get_compiler(), ["-build", project]),
         "$dylan-compiler-problems"
     );
     compileTask.group = vscode.TaskGroup.Build;
@@ -60,12 +53,5 @@ function projectFileToTask(p: string, ws?: vscode.WorkspaceFolder): vscode.Task 
 }
 
 async function scanWorkspacesForProjects(): Promise<vscode.Task[]> {
-    const folders = vscode.workspace.workspaceFolders || []
-    const results: vscode.Task[] = [];
-    for (const ws of folders) {
-        const files = await scanForProjectFiles(ws.uri.fsPath);
-        files.map((file) => projectFileToTask(file, ws))
-            .forEach(task => results.push(task));
-    }
-    return results;
+    return (await scanForProjectFiles()).map(projectFileToTask);
 }
