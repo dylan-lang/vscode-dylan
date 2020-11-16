@@ -9,7 +9,7 @@ export class DylanTaskProvider implements vscode.TaskProvider {
     /* This is to scan the workspace root for tasks */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     provideTasks(_token: vscode.CancellationToken): Thenable<vscode.Task[]> {
-        return scanWorkspacesForProjects();
+        return scanWorkspacesForTasks();
     }
     /* This is to "re-animate" a task that was stored in tasks.json */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -26,13 +26,20 @@ export class DylanTaskProvider implements vscode.TaskProvider {
     }
 
 }
+/**
+ * Extra info we need to associate with a Dylan compiler Task.
+*/
 interface DylanTaskDefinition extends vscode.TaskDefinition {
-    project: string; // the project name
+    project: string; // the project file name
 }
-
+/**
+ * Take a reference to a project file and generate the dylan-compiler
+ * command to build it.
+ * @param p the URI of a project (.lid) file
+ * @returns the Task
+ */
 function projectUriToTask(p: vscode.Uri): vscode.Task {
-
-    const project = path.basename(p.fsPath, ".lid");
+    const project = path.basename(p.fsPath);
     const compileTask = new vscode.Task({
         type: DylanTaskProvider.Type,
         project: project
@@ -43,11 +50,16 @@ function projectUriToTask(p: vscode.Uri): vscode.Task {
         new vscode.ProcessExecution(get_compiler(), ["-build", project]),
         "$dylan-compiler-problems"
     );
+    // TODO - set the working directory?
     compileTask.group = vscode.TaskGroup.Build;
     return compileTask;
 }
-
-async function scanWorkspacesForProjects(): Promise<vscode.Task[]> {
-    return vscode.workspace.findFiles("*.lid", "_build")
+/**
+ * Look in all workspace folders for project files. Return a corresponding
+ * array of configured Tasks.
+ * @returns Array of tasks
+ */
+async function scanWorkspacesForTasks(): Promise<vscode.Task[]> {
+    return vscode.workspace.findFiles("*.{lid,hdp}", "_build")
         .then(uris => uris.map(projectUriToTask));
 }
