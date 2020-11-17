@@ -1,11 +1,11 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
-    "vscode": "^1.45.0"
+    "vscode": "^1.51.0"
   },
   "license": "MIT",
   "bugs": {
@@ -20,7 +20,9 @@
     "Programming Languages",
     "Snippets"
   ],
-  "keywords": ["dylan"],
+  "keywords": [
+    "dylan"
+  ],
   "main": "./out/extension",
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
@@ -42,14 +44,14 @@
     "onCommand:workbench.action.tasks.runTask"
   ],
   "contributes": {
-    "configuration":{
+    "configuration": {
       "title": "Dylan",
       "properties": {
-        "dylan.compiler":{
+        "dylan.compiler": {
           "title": "Path to the compiler",
           "description": "Absolute path to the Open Dylan compiler. If blank, look in the current PATH",
-          "type":"string",
-          "default":""
+          "type": "string",
+          "default": ""
         }
       }
     },
