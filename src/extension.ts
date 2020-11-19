@@ -2,7 +2,7 @@ import { existsSync } from 'fs';
 import * as vscode from 'vscode';
 import * as path from 'path'
 import { DylanTaskProvider } from './dylanTaskProvider';
-
+import { activateLsp, deactivateLsp } from './dylanLsp'
 let dylanTaskProvider: vscode.Disposable | undefined;
 
 let channel: vscode.OutputChannel | undefined;
@@ -12,18 +12,20 @@ export function get_channel(): vscode.OutputChannel {
     }
     return channel;
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 export function activate(context: vscode.ExtensionContext): void {
     get_channel().appendLine('Activating');
+    activateLsp(context);
     compiler = find_compiler() || 'dylan-compiler-not-found';
     dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider());
 }
 
-export function deactivate(): void {
+export function deactivate(): Thenable<void> | undefined {
     if (dylanTaskProvider) {
         dylanTaskProvider.dispose();
         dylanTaskProvider = void 0;
     }
+    return deactivateLsp();
 }
 // Cached location.
 let compiler: string | undefined = undefined;
