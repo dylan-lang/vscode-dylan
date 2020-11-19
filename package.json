@@ -1,7 +1,7 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
@@ -28,6 +28,9 @@
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -watch -p ./"
   },
+  "dependencies": {
+    "vscode-languageclient": "^6.1.3"
+  },
   "devDependencies": {
     "@types/mocha": "^8.0.4",
     "@types/node": "^12.11.7",
@@ -46,6 +49,20 @@
     "configuration": {
       "title": "Dylan",
       "properties": {
+        "dylan.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "verbose",
+            "messages"
+          ],
+          "default": "off",
+          "description": "Activate tracing"
+        },
+        "dylan.project": {
+          "type": "string",
+          "description": "Sets the name of the current project"
+        },
         "dylan.compiler": {
           "title": "Path to the compiler",
           "description": "Absolute path to the Open Dylan compiler. If blank, look in the current PATH",
