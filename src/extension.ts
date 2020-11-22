@@ -15,8 +15,8 @@ export function get_channel(): vscode.OutputChannel {
 
 export function activate(context: vscode.ExtensionContext): void {
     get_channel().appendLine('Activating');
-    activateLsp(context);
     compiler = find_compiler() || 'dylan-compiler-not-found';
+    activateLsp(context);
     dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider());
 }
 

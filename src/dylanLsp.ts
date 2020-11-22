@@ -6,7 +6,7 @@
 
 import * as path from 'path';
 import { ExtensionContext } from 'vscode';
-
+import {get_channel, get_compiler} from './extension';
 import {
 	LanguageClient,
 	LanguageClientOptions,
@@ -15,9 +15,13 @@ import {
 } from 'vscode-languageclient';
 
 let client: LanguageClient;
-// TODO - get from env?
+// TODO - this should be a setting
+let registries : string|undefined = undefined
 function user_registries() {
-	return ["/Users/peterhull/registry"].join(';');
+	if (!registries) {
+		registries = process.env["OPEN_DYLAN_USER_REGISTRIES"] || "."
+	}
+	return registries;
 }
 
 export function activateLsp(context: ExtensionContext): void {
@@ -25,14 +29,14 @@ export function activateLsp(context: ExtensionContext): void {
 	const serverExe = context.asAbsolutePath(
 		path.join('..', '_build', 'bin', 'lsp-dylan')
 	);
-
+		get_channel().appendLine(`serverExe: ${serverExe}`)
+		get_channel().appendLine(`compiler: ${get_compiler()}`)
 	const openDylanRelease =
-		// HACK - should find the real dylan-compiler or allow
-		// to be overridden
-		path.join(path.dirname('/opt/local/2020.1pre/bin/dylan-compiler'), '..');
+		path.join(path.dirname(get_compiler()), '..');
 	const runOptions: ExecutableOptions = {
 		env: {
-			...process.env, OPEN_DYLAN_RELEASE: openDylanRelease,
+			...process.env, 
+			OPEN_DYLAN_RELEASE: openDylanRelease,
 			OPEN_DYLAN_USER_REGISTRIES: user_registries()
 		}
 	}
