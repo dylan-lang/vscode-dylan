@@ -6,7 +6,8 @@
   "name": "Dylan",
   "patterns": [
     {
-      "begin": "([\\x{21}-\\x{39}\\x{3B}-\\x{7E}]+)(:)\\s*",
+      "comment":"Matches one 'Header: content' item with possible continuation lines",
+      "begin": "^([[:alpha:]][[:print:]]*)(:)\\s*",
       "beginCaptures": {
         "1": {
           "name": "keyword.other.mail"
@@ -15,7 +16,7 @@
           "name": "punctuation.separator.key-value.mail"
         }
       },
-      "end": "^|\\s*|$",
+      "end": "^(?![ \\t\\v])",
       "name": "meta.header.mail"
     },
     {
