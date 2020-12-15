@@ -6,7 +6,7 @@
   "name": "Dylan",
   "patterns": [
     {
-      "comment":"Matches one 'Header: content' item with possible continuation lines",
+      "comment": "Matches one 'Header: content' item with possible continuation lines",
       "begin": "^([[:alpha:]][[:print:]]*)(:)\\s*",
       "beginCaptures": {
         "1": {
