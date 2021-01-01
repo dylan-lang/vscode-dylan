@@ -12,7 +12,7 @@ import {
 	LanguageClientOptions,
 	ServerOptions,
 	ExecutableOptions
-} from 'vscode-languageclient';
+} from 'vscode-languageclient/node';
 
 let client: LanguageClient;
 // TODO - this should be a setting
@@ -26,6 +26,7 @@ function user_registries() {
 
 export function activateLsp(context: ExtensionContext): void {
 	// The server is implemented in dylan native code
+	// TODO find the server from config, or from being on the path
 	const serverExe = context.asAbsolutePath(
 		path.join('..', '_build', 'bin', 'lsp-dylan')
 	);
