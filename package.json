@@ -69,6 +69,12 @@
           "description": "Absolute path to the Open Dylan compiler. If blank, look in the current PATH",
           "type": "string",
           "default": ""
+        },
+        "dylan.lsp": {
+          "title": "Path to the LSP exe",
+          "description": "Absolute path to the Open Dylan Language Server. If blank, look in the current PATH",
+          "type": "string",
+          "default": ""
         }
       }
     },
