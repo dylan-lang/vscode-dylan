@@ -80,7 +80,7 @@
           "name": "entity.name.function.dylan"
         }
       },
-      "match": "^(define)\\s+((?:(?:sealed|open|sideways|dynamic|compiler-sideways|compiler-open|inline[-a-z]*)\\s+)+)?(?:(domain)|(method|function|generic)\\s+)([\\\\_A-Za-z0-9/!?*%$\\-\\<\\>=]*)",
+      "match": "^(define)\\s+((?:(?:sealed|open|sideways|dynamic|compiler-sideways|compiler-open|default-inline|inline-only|inline|may-inline|not-inline)\\s+)+)?(?:(domain)|(method|function|generic)\\s+)([\\\\_A-Za-z0-9/!?*%$\\-\\<\\>=]*)",
       "name": "meta.function.dylan"
     },
     {
