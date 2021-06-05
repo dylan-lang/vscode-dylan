@@ -40,6 +40,7 @@
     "@typescript-eslint/parser": "^4.7.0",
     "eslint": "^7.1.0",
     "mocha": "^8.2.1",
+    "ts-standard": "^10.0.0",
     "typescript": "^4.0.5"
   },
   "activationEvents": [
