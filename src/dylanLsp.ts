@@ -34,9 +34,9 @@ function userRegistries (): string {
  */
 function findLanguageServer (): string | undefined {
   const config = vscode.workspace.getConfiguration('dylan')
-  const dylanCompiler = config.get<string>('lsp')
+  const dylanCompiler = config.get<string>('lsp', '').trim()
 
-  if (dylanCompiler != null) {
+  if (dylanCompiler) {
     if (existsSync(dylanCompiler)) {
       getChannel().appendLine('LSP given explicitly ' + dylanCompiler)
       return dylanCompiler
@@ -47,7 +47,7 @@ function findLanguageServer (): string | undefined {
   } else {
     /* No setting, assume it's on the path */
     const paths = (process.env.PATH ?? '').split(path.delimiter)
-    const exe = process.platform === 'win32' ? 'lsp-dylan.exe' : 'lsp-dylan'
+    const exe = process.platform === 'win32' ? 'dylan-lsp-server.exe' : 'dylan-lsp-server'
     for (const p of paths) {
       const dc = path.join(p, exe)
       if (existsSync(dc)) {
