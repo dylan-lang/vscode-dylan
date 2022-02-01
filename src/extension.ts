@@ -27,6 +27,34 @@ export function deactivate (): Thenable<void> | undefined {
   }
   return deactivateLsp()
 }
+/**
+ * If the file exists, return it, otherwise return undefined.
+ * If the file is a name with no directories, attempt to find
+ * it on the system path.
+ * @param file A file name or path
+ */
+export function findOnPath (file: string): string | undefined {
+  if (file.includes(path.sep)) {
+    if (existsSync(file)) {
+      return file
+    } else {
+      return undefined
+    }
+  } else {
+    const envPath = process.env.PATH
+    if (envPath != null && envPath !== '') {
+      const paths = envPath.split(path.delimiter)
+      for (const p of paths) {
+        const fullPath = path.join(p, file)
+        if (existsSync(fullPath)) {
+          return fullPath
+        }
+      }
+    }
+    return undefined
+  }
+}
+
 // Cached location.
 let compiler: string | undefined
 /**
@@ -38,21 +66,12 @@ let compiler: string | undefined
  */
 function findCompiler (): string | undefined {
   const config = vscode.workspace.getConfiguration('dylan')
-  const dylanCompiler = config.get('compiler')
-  if (dylanCompiler != null && dylanCompiler !== '') {
-    return dylanCompiler as string
-  } else {
-    /* No setting, assume it's on the path */
-    const paths = (process.env.PATH ?? '').split(path.delimiter)
-    const exe = process.platform === 'win32' ? 'dylan-compiler-with-tools.exe' : 'dylan-compiler'
-    for (const p of paths) {
-      const dc = path.join(p, exe)
-      if (existsSync(dc)) {
-        return dc
-      }
-    }
-    return undefined // Not found anywhere
+  let dylanCompiler = config.get('compiler', '').trim()
+  if (dylanCompiler === '') {
+    dylanCompiler = process.platform === 'win32' ? 'dylan-compiler-with-tools.exe' : 'dylan-compiler'
   }
+  const resolved = findOnPath(dylanCompiler)
+  return resolved
 }
 /**
  * Get full path of the dylan compiler.
