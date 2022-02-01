@@ -5,9 +5,8 @@
  * ------------------------------------------------------------------------------------------ */
 
 import * as path from 'path'
-import { existsSync } from 'fs'
 import * as vscode from 'vscode'
-import { getChannel, getCompiler } from './extension'
+import { getChannel, getCompiler, findOnPath } from './extension'
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -18,7 +17,7 @@ import {
 let client: LanguageClient
 // TODO - this should be a setting
 
-let registries: string|undefined
+let registries: string | undefined
 function userRegistries (): string {
   if (registries == null) {
     registries = process.env.OPEN_DYLAN_USER_REGISTRIES ?? path.resolve(vscode.workspace.workspaceFolders?.[0].uri.fsPath ?? '.', 'registry')
@@ -29,39 +28,23 @@ function userRegistries (): string {
 /**
  * Find the Dylan LSP executable.
  * Look on the PATH for `lsp-dylan`.
- * Can be overridden with `dylan.lsp` in the Settings.
+ * Can be overridden with `dylan.lspServer` in the Settings.
  * Returns undefined if nothing found.
  */
 function findLanguageServer (): string | undefined {
   const config = vscode.workspace.getConfiguration('dylan')
-  const dylanCompiler = config.get<string>('lsp', '').trim()
-
-  if (dylanCompiler) {
-    if (existsSync(dylanCompiler)) {
-      getChannel().appendLine('LSP given explicitly ' + dylanCompiler)
-      return dylanCompiler
-    } else {
-      getChannel().appendLine('LSP given explicitly ' + dylanCompiler + ' but not found')
-      return undefined
-    }
-  } else {
-    /* No setting, assume it's on the path */
-    const paths = (process.env.PATH ?? '').split(path.delimiter)
-    const exe = process.platform === 'win32' ? 'dylan-lsp-server.exe' : 'dylan-lsp-server'
-    for (const p of paths) {
-      const dc = path.join(p, exe)
-      if (existsSync(dc)) {
-        getChannel().appendLine('LSP found on path ' + dc)
-        return dc
-      }
-    }
-    getChannel().appendLine(`LSP not in ${paths.join(':')} or given explicitly`)
-    return undefined // Not found anywhere
+  let dylanLanguageServer = config.get<string>('lspServer', '').trim()
+  if (dylanLanguageServer === '') {
+    dylanLanguageServer = process.platform === 'win32' ? 'dylan-lsp-server.exe' : 'dylan-lsp-server'
   }
+  const resolved = findOnPath(dylanLanguageServer)
+  if (resolved === undefined) {
+    getChannel().appendLine(`LSP server ${dylanLanguageServer} not found.`)
+  }
+  return resolved
 }
 export function activateLsp (context: vscode.ExtensionContext): void {
   // The server is implemented in dylan native code
-  // TODO find the server from config, or from being on the path
   const serverExe = findLanguageServer()
   if (serverExe != null) {
     getChannel().appendLine(`serverExe: ${serverExe}`)
