@@ -50,7 +50,7 @@ export function activateLsp (context: vscode.ExtensionContext): void {
     getChannel().appendLine(`serverExe: ${serverExe}`)
     getChannel().appendLine(`compiler: ${getCompiler()}`)
     const openDylanRelease =
-    path.join(path.dirname(getCompiler()), '..')
+      path.join(path.dirname(getCompiler()), '..')
     const runOptions: ExecutableOptions = {
       env: {
         ...process.env,
