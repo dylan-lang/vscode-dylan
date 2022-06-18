@@ -4,17 +4,9 @@ import * as path from 'path'
 import { DylanTaskProvider } from './dylanTaskProvider'
 import { activateLsp, deactivateLsp } from './dylanLsp'
 let dylanTaskProvider: vscode.Disposable | undefined
-
-let channel: vscode.OutputChannel | undefined
-export function getChannel (): vscode.OutputChannel {
-  if (channel == null) {
-    channel = vscode.window.createOutputChannel('Dylan')
-  }
-  return channel
-}
+export const channelName = 'Dylan Language Server'
 
 export function activate (context: vscode.ExtensionContext): void {
-  getChannel().appendLine('Activating')
   compiler = findCompiler() ?? 'dylan-compiler-not-found'
   activateLsp(context)
   dylanTaskProvider = vscode.tasks.registerTaskProvider(DylanTaskProvider.Type, new DylanTaskProvider())
