@@ -43,7 +43,8 @@ function findLanguageServer (): string | undefined {
   }
   return resolved
 }
-export function activateLsp (context: vscode.ExtensionContext): void {
+export function activateLsp (_context: vscode.ExtensionContext): void {
+  void _context // We don't use it
   // The server is implemented in dylan native code
   const serverExe = findLanguageServer()
   if (serverExe != null) {
@@ -86,8 +87,7 @@ export function activateLsp (context: vscode.ExtensionContext): void {
     )
 
     // Start the client. This will also launch the server
-    const disposable = client.start()
-    context.subscriptions.push(disposable)
+    void client.start()
   } else {
     // Server not found.
     vscode.window.showErrorMessage('Dylan language server not found. Advanced editing functions will not be available.').then(() => { /* ignore */ }, () => { /* ignore */ })
