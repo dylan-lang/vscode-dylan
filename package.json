@@ -36,7 +36,7 @@
     "@types/node": "^14.16.0",
     "@types/vscode": "^1.51.0",
     "mocha": "^10.0.0",
-    "ts-standard": "^11.0.0",
+    "ts-standard": "^12.0.2",
     "typescript": "^4.0.5"
   },
   "activationEvents": [
