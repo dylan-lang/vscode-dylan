@@ -42,7 +42,7 @@ function projectUriToTask (p: vscode.Uri): vscode.Task {
   const project = path.basename(p.fsPath)
   const compileTask = new vscode.Task({
     type: DylanTaskProvider.Type,
-    project: project
+    project
   },
   vscode.TaskScope.Workspace,
   project,
