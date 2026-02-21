@@ -1,11 +1,11 @@
 {
   "name": "vscode-dylan",
   "description": "Dylan language support for Visual Studio Code",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "publisher": "dylan-foundry",
   "icon": "images/dylan-squares.png",
   "engines": {
-    "vscode": "^1.54.0"
+    "vscode": "^1.51.0"
   },
   "license": "MIT",
   "bugs": {
@@ -20,20 +20,90 @@
     "Programming Languages",
     "Snippets"
   ],
-  "main": "./out/src/dylanMain",
+  "keywords": [
+    "dylan"
+  ],
+  "main": "./out/extension",
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -watch -p ./"
   },
+  "dependencies": {
+    "vscode-languageclient": "^8.0.1"
+  },
   "devDependencies": {
-    "@types/node": "^6.14.13",
-    "@types/vscode": "^1.54.0",
-    "typescript": "^4.2.3"
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^14.16.0",
+    "@types/vscode": "^1.51.0",
+    "mocha": "^10.0.0",
+    "ts-standard": "^11.0.0",
+    "typescript": "^4.0.5"
   },
   "activationEvents": [
-    "onLanguage:dylan"
+    "onLanguage:dylan",
+    "onCommand:workbench.action.tasks.runTask"
   ],
   "contributes": {
+    "configuration": {
+      "title": "Dylan",
+      "properties": {
+        "dylan.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "verbose",
+            "messages"
+          ],
+          "default": "off",
+          "description": "Activate tracing"
+        },
+        "dylan.project": {
+          "type": "string",
+          "description": "Sets the name of the current project"
+        },
+        "dylan.compiler": {
+          "description": "Absolute path to the Open Dylan compiler. If blank, look for 'dylan-compiler' in the current PATH",
+          "type": "string",
+          "default": ""
+        },
+        "dylan.lspServer": {
+          "description": "Absolute path to the Open Dylan Language Server. If blank, look for 'dylan-lsp-server' in the current PATH",
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    "problemMatchers": [
+      {
+        "name": "dylan-compiler-problems",
+        "owner": "vscode-dylan",
+        "fileLocation": "autoDetect",
+        "pattern": {
+          "regexp": "^(.*):(\\d+)\\.(\\d+)-((\\d+)\\.)?(\\d+):\\s+(.*)\\s-\\s(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "endLine": 5,
+          "endColumn": 6,
+          "severity": 7,
+          "message": 8
+        }
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "dylan-compiler",
+        "required": [
+          "project"
+        ],
+        "properties": {
+          "project": {
+            "type": "string",
+            "description": "The project name to build."
+          }
+        }
+      }
+    ],
     "languages": [
       {
         "id": "dylan",
