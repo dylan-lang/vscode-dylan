@@ -9,9 +9,9 @@ import * as vscode from 'vscode'
 import { getCompiler, findOnPath, channelName } from './extension'
 import {
   LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
-  ExecutableOptions
+  type LanguageClientOptions,
+  type ServerOptions,
+  type ExecutableOptions
 } from 'vscode-languageclient/node'
 import { mkdtemp } from 'fs'
 import { tmpdir } from 'os'
@@ -22,7 +22,7 @@ let client: LanguageClient
 let registries: string | undefined
 function userRegistries (): string {
   if (registries == null) {
-    registries = process.env.OPEN_DYLAN_USER_REGISTRIES ?? path.resolve(vscode.workspace.workspaceFolders?.[0].uri.fsPath ?? '.', 'registry')
+    registries = process.env.OPEN_DYLAN_USER_REGISTRIES ?? path.resolve(vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? '.', 'registry')
   }
   return registries
 }
