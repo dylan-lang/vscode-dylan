@@ -6,13 +6,15 @@
 
 import * as path from 'path'
 import * as vscode from 'vscode'
-import { getChannel, getCompiler, findOnPath } from './extension'
+import { getCompiler, findOnPath, channelName } from './extension'
 import {
   LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
-  ExecutableOptions
+  type LanguageClientOptions,
+  type ServerOptions,
+  type ExecutableOptions
 } from 'vscode-languageclient/node'
+import { mkdtemp } from 'fs'
+import { tmpdir } from 'os'
 
 let client: LanguageClient
 // TODO - this should be a setting
@@ -20,7 +22,7 @@ let client: LanguageClient
 let registries: string | undefined
 function userRegistries (): string {
   if (registries == null) {
-    registries = process.env.OPEN_DYLAN_USER_REGISTRIES ?? path.resolve(vscode.workspace.workspaceFolders?.[0].uri.fsPath ?? '.', 'registry')
+    registries = process.env.OPEN_DYLAN_USER_REGISTRIES ?? path.resolve(vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? '.', 'registry')
   }
   return registries
 }
@@ -39,7 +41,7 @@ function findLanguageServer (): string | undefined {
   }
   const resolved = findOnPath(dylanLanguageServer)
   if (resolved === undefined) {
-    getChannel().appendLine(`LSP server ${dylanLanguageServer} not found.`)
+    void vscode.window.showErrorMessage(`LSP server ${dylanLanguageServer} not found.`)
   }
   return resolved
 }
@@ -48,8 +50,6 @@ export function activateLsp (_context: vscode.ExtensionContext): void {
   // The server is implemented in dylan native code
   const serverExe = findLanguageServer()
   if (serverExe != null) {
-    getChannel().appendLine(`serverExe: ${serverExe}`)
-    getChannel().appendLine(`compiler: ${getCompiler()}`)
     const openDylanRelease =
       path.join(path.dirname(getCompiler()), '..')
     const runOptions: ExecutableOptions = {
@@ -59,35 +59,47 @@ export function activateLsp (_context: vscode.ExtensionContext): void {
         OPEN_DYLAN_USER_REGISTRIES: userRegistries()
       }
     }
-    const serverOptions: ServerOptions = {
-      run: {
-        command: serverExe,
-        options: runOptions
-      },
-      debug: {
-        command: serverExe,
-        args: ['--debug-server'],
-        options: runOptions
+    mkdtemp(path.join(tmpdir(), 'dylan-lsp-'), (err, folder) => {
+      if (err != null) { throw err }
+      const logfile = path.join(folder, 'dylan-lsp-server.log')
+      const logarg = ['--log', logfile]
+      const serverOptions: ServerOptions = {
+        run: {
+          command: serverExe,
+          args: logarg,
+          options: runOptions
+        },
+        debug: {
+          command: serverExe,
+          args: ['--debug-server', ...logarg],
+          options: runOptions
+        }
       }
-    }
 
-    // Options to control the language client
-    const clientOptions: LanguageClientOptions = {
+      // Options to control the language client
+      const clientOptions: LanguageClientOptions = {
       // Register the server for dylan source documents
-      documentSelector: [{ scheme: 'file', language: 'dylan' }],
-      synchronize: { configurationSection: 'dylan' }
-    }
+        documentSelector: [{ scheme: 'file', language: 'dylan' }],
+        synchronize: { configurationSection: 'dylan' },
+        outputChannelName: channelName
+      }
 
-    // Create the language client and start the client.
-    client = new LanguageClient(
-      'dylan',
-      'Dylan Language Server',
-      serverOptions,
-      clientOptions
-    )
+      // Create the language client and start the client.
+      client = new LanguageClient(
+        'dylan',
+        'Dylan Language Server',
+        serverOptions,
+        clientOptions
+      )
+      // client.outputChannel.appendLine(`clientOptions: ${JSON.stringify(clientOptions)}`)
+      // client.outputChannel.appendLine(`serverOptions: ${JSON.stringify(serverOptions)}`)
+      // client.outputChannel.appendLine(`logfile: ${logfile ?? '-'}`)
+      // client.outputChannel.appendLine(`logarg: ${JSON.stringify(logarg)}`)
+      client.outputChannel.appendLine(`compiler: ${getCompiler()}`)
 
-    // Start the client. This will also launch the server
-    void client.start()
+      // Start the client. This will also launch the server
+      void client.start()
+    })
   } else {
     // Server not found.
     vscode.window.showErrorMessage('Dylan language server not found. Advanced editing functions will not be available.').then(() => { /* ignore */ }, () => { /* ignore */ })
