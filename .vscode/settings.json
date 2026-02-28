@@ -8,5 +8,6 @@
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
   "restructuredtext.confPath": "", // we want to use the TS server from our node_modules folder to control its version
-  "typescript.tsc.autoDetect": "off" // Turn off tsc task auto detection since we have the necessary task as npm scripts
+  "typescript.tsc.autoDetect": "off",
+  "standard.engine": "ts-standard" // Turn off tsc task auto detection since we have the necessary task as npm scripts
 }
