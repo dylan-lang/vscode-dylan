@@ -6,18 +6,14 @@
   "name": "Dylan",
   "patterns": [
     {
-      "comment":"Matches one 'Header: content' item with possible continuation lines",
-      "begin": "^([[:alpha:]][[:print:]]*)(:)\\s*",
-      "beginCaptures": {
-        "1": {
-          "name": "keyword.other.mail"
-        },
-        "2": {
-          "name": "punctuation.separator.key-value.mail"
+      "begin": "\\A",
+      "end": "^\\s+$",
+      "patterns": [
+        {
+          "include": "#header-item"
         }
-      },
-      "end": "^(?![ \\t\\v])",
-      "name": "meta.header.mail"
+      ],
+      "name": "meta.header.dylan"
     },
     {
       "begin": "(?<=^|\\s|\\()/\\*",
@@ -217,9 +213,27 @@
     {
       "match": "(?<=^|[~,.(\\[\\s])(abort|abs|add|add!|add-method|add-new|add-new!|all-superclasses|always|any\\?|applicable-method\\?|apply|aref|aref-setter|as|as-lowercase|as-lowercase!|as-uppercase|as-uppercase!|ash|backward-iteration-protocol|break|ceiling|ceiling/|cerror|check-type|choose|choose-by|complement|compose|concatenate|concatenate-as|condition-format-arguments|condition-format-string|conjoin|copy-sequence|curry|default-handler|dimension|dimensions|direct-subclasses|direct-superclasses|disjoin|do|do-handlers|element|element-setter|empty\\?|error|even\\?|every\\?|false-or|fill!|find-key|find-method|first|first-setter|floor|floor/|forward-iteration-protocol|function-arguments|function-return-values|function-specializers|gcd|generic-function-mandatory-keywords|generic-function-methods|head|head-setter|identity|initialize|instance\\?|integral\\?|intersection|key-sequence|key-test|last|last-setter|lcm|limited|list|logand|logbit\\?|logior|lognot|logxor|make|map|map-as|map-into|max|member\\?|merge-hash-codes|min|modulo|negative|negative\\?|next-method|object-class|object-hash|odd\\?|one-of|pair|pop|pop-last|positive\\?|push|push-last|range|rank|rcurry|reduce|reduce1|remainder|remove|remove!|remove-duplicates|remove-duplicates!|remove-key!|remove-method|replace-elements!|replace-subsequence!|restart-query|return-allowed\\?|return-description|return-query|reverse|reverse!|round|round/|row-major-index|second|second-setter|shallow-copy|signal|singleton|size|size-setter|slot-initialized\\?|sort|sort!|sorted-applicable-methods|subsequence-position|subtype\\?|table-protocol|tail|tail-setter|third|third-setter|truncate|truncate/|type-error-expected-type|type-error-value|type-for-copy|type-union|union|values|vector|zero\\?)(?=$|[;,.()\\s\\]])",
       "name": "support.function.dylan"
+    },
+    {
+      "match": "([a-zA-Z]+:)",
+      "name": "keyword.other.dylan"
     }
   ],
   "repository": {
+    "header-item": {
+      "comment": "Matches one 'Header: content' item with possible continuation lines",
+      "begin": "^([[:alpha:]][[:print:]]*)(:)\\s*",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.mail"
+        },
+        "2": {
+          "name": "punctuation.separator.key-value.mail"
+        }
+      },
+      "end": "^(?![ \\t\\v])",
+      "name": "meta.header.mail"
+    },
     "comment-block": {
       "begin": "(?<=^|\\s|\\()/\\*",
       "end": "\\*/"
@@ -230,5 +244,5 @@
     }
   },
   "scopeName": "source.dylan",
-  "uuid": "475B8369-3520-4B4C-BBA1-1D1229C6F397"
+  "uuid": "CE3DCAAD-F44A-4BB9-9B76-081CA18CA745"
 }
