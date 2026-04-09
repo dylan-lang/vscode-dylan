@@ -7,6 +7,20 @@
     "keyEquivalent": "^~D",
     "name": "Dylan",
     "patterns": [
+        {
+            "match": "(?i:^(module):\\s+(NAME))",
+            "captures": {
+                "1": { "name": "keyword.package.dylan" },
+                "2": { "name": "entity.name.type.package.dylan" }
+            }
+        },
+        {
+            "comment": "other headers besides Module",
+            "match": "(?i:^([a-z][-a-z0-9]*):)",
+            "captures": {
+                "1": { "name": "keyword.package.dylan" }
+            }
+        },
         { "include": "#comment-line" },
         { "include": "#comment-block" },
         {
