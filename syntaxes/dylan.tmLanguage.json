@@ -222,7 +222,7 @@
   "repository": {
     "header-item": {
       "comment": "Matches one 'Header: content' item with possible continuation lines",
-      "begin": "^([[:alpha:]][[:print:]]*)(:)\\s*",
+      "begin": "^([[:alpha:]][-[:alnum:]]*)(:)\\s*",
       "beginCaptures": {
         "1": {
           "name": "keyword.other.mail"
