@@ -7,5 +7,5 @@
 dir=$(dirname $0)
 cat ${dir}/dylan.tmLanguage.template.json \
     | sed 's/NAME_END/(?:[\\\\s(),.;:#{}\\\\[\\\\]])/g' \
-    | sed 's,NAME,(?:[a-z]|[0-9]+[a-z][a-z]|[!\&*<>|^$%@_]+[a-z])[-+~?/=!\&*<>|^$%@_a-z0-9]*,g' \
+    | sed 's,NAME,(?i:[a-z]|[0-9]+[a-z][a-z]|[!\&*<>|^$%@_]+[a-z])[-+~?/=!\&*<>|^$%@_a-z0-9]*,g' \
           > ${dir}/dylan.tmLanguage.json
