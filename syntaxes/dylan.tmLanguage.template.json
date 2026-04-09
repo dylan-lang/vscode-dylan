@@ -35,7 +35,6 @@
                 "4": { "name": "keyword.other.dylan" },
                 "5": { "name": "variable.other.dylan" }
             },
-            "end-saved": "^(end)(\\s+(\\4))?",
             "end": "^(end)(\\s+(\\4))?(\\s+(\\5))?NAME_END",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
@@ -46,6 +45,42 @@
             "patterns": [
                 { "include": "#body" }
             ]
+        },
+        {
+            "comment": "define class - single line - no slots - must precede multi-line define class",
+            "match": "^(define)(\\s+(NAME))*\\s+(class)\\s+(NAME)\\s*[(]((NAME)(,\\s*(NAME))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?",
+            "captures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "storage.modifier.dylan" },
+                "4": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" },
+                "6": { "name": "entity.other.inherited-class" },
+                "10": { "name": "keyword.other.dylan" },
+                "12": { "name": "keyword.other.dylan" },
+                "14": { "name": "variable.other.dylan" }
+            },
+            "name": "meta.definition.class.dylan"
+        },
+        {
+            "comment": "define class - multi line - must follow single line define class",
+            "begin": "^(define)(\\s+(NAME))*\\s+(class)\\s+(NAME)($|\\s+[(]((NAME)(,\\s*(NAME))*)[)])?",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "storage.modifier.dylan" },
+                "4": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" },
+                "7": { "name": "entity.other.inherited-class" }
+            },
+            "end": "^(end)(\\s+(class))?(\\s+(\\5))?($|NAME_END)",
+            "endCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" }
+            },
+            "name": "meta.definition.class.dylan",
+            "patterns": [
+                { "include": "#slot" }
+            ]
         }
     ],
     "repository": {
@@ -54,6 +89,24 @@
                 { "include": "#let" },
                 { "include": "#comment-line" },
                 { "include": "#comment-block" }
+            ]
+        },
+        "slot": {
+            "begin": "(?i:^\\s*((constant|sealed)\\s+)*(slot)\\s+(NAME)(\\s+(::)\\s+(NAME))?)",
+            "beginCaptures": {
+                "2": { "name": "storage.modifier.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "4": { "name": "variable.other.dylan" },
+                "6": { "name": "meta.punctuation.dylan" },
+                "7": { "name": "storage.type.dylan" }
+            },
+            "end_": "See 'limitations' in CONTRIBUTING.rst",
+            "end": ";",
+            "endCaptures": {
+                "0": { "name": "meta.punctuation.dylan" }
+            },
+            "patterns": [
+                { "include": "#body" }
             ]
         },
         "let": {
