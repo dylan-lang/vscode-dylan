@@ -91,6 +91,7 @@
             },
             "name": "meta.definition.variable.dylan",
             "patterns": [
+                { "include": "#parameter-list-words" },
                 { "include": "#body" }
             ]
         },
@@ -110,6 +111,7 @@
             },
             "name": "meta.definition.function.dylan",
             "patterns": [
+                { "include": "#parameter-list-words" },
                 { "include": "#body" }
             ]
         },
@@ -173,7 +175,13 @@
             "patterns": [
                 { "include": "#let" },
                 { "include": "#comment-line" },
-                { "include": "#comment-block" }
+                { "include": "#comment-block" },
+                { "include": "#string" },
+                { "include": "#symbol" },
+                { "include": "#boolean" },
+                { "include": "#hex-oct-bin" },
+                { "include": "#decimal" },
+                { "include": "#character" }
             ]
         },
         "slot": {
@@ -210,9 +218,45 @@
             "begin": "(?<=^|\\s|\\()/\\*",
             "end": "\\*/"
         },
+        "string": {
+            "begin": "(#[rR])?\"",
+            "end": "\"",
+            "name": "string.quoted.double.dylan",
+            "patterns": [
+                { "include": "#escape" }
+            ]
+        },
+        "symbol": {
+            "begin": "#\"+",
+            "end": "\"+",
+            "name": "constant.other.dylan",
+            "patterns": [
+                { "include": "#escape" }
+            ]
+        },
         "escape": {
-            "match": "\\\\(?i:<[0-9a-f]*>|.)",
+            "match": "\\\\(?i:.|<[0-9a-f]*>)",
             "name": "constant.character.escape.dylan"
+        },
+        "boolean": {
+            "match": "(?i:#t|#f)",
+            "name": "constant.language.dylan"
+        },
+        "hex-oct-bin": {
+            "match": "(?i:(#x[0-9a-f_]+|#o[0-7_]+|#b[01_]+)($|(?:[\\s(),.;:#{}\\[\\]])))",
+            "name": "constant.numeric.dylan"
+        },
+        "decimal": {
+            "match": "(^|(?:[\\s(),.;:#{}\\[\\]]))((([0-9_]+(\\.[0-9_]*)?)|(\\.[0-9_]+))([desx][+-]?[0-9_]+)?)($|(?:[\\s(),.;:#{}\\[\\]]))",
+            "name": "constant.numeric.dylan"
+        },
+        "character": {
+            "match": "'(\\\\<[0-9a-fA-F]*>|\\\\.|.)'",
+            "name": "constant.character.dylan"
+        },
+        "parameter-list-words": {
+            "match": "(?i:#next|#rest|#key|#all-keys)",
+            "name": "keyword.control.dylan"
         }
     },
     "scopeName": "source.dylan",
