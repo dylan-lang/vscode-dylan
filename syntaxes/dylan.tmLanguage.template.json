@@ -39,13 +39,13 @@
             "name": "meta.definition.macro.dylan",
             "patterns": [
                 {
-                    "match": "(?i:\\?(NAME):)",
+                    "match": "\\?(NAME):",
                     "captures": {
                         "1": { "name": "variable.other.dylan" }
                     }
                 },
                 {
-                    "match": "(?i:\\?:(NAME))",
+                    "match": "(?i:\\?:(expression|variable|name|token|body|case-body|macro))",
                     "captures": {
                         "1": { "name": "variable.other.dylan" }
                     }
@@ -72,7 +72,7 @@
             "endCaptures": {
                 "0": { "name": "meta.punctuation.dylan" }
             },
-            "name": "meta.definition.function.dylan",
+            "name": "meta.definition.variable.dylan",
             "patterns": [
                 { "include": "#body" }
             ]
@@ -89,14 +89,14 @@
             "endCaptures": {
                 "0": { "name": "meta.punctuation.dylan" }
             },
-            "name": "meta.definition.variable.dylan",
+            "name": "meta.definition.function.dylan",
             "patterns": [
                 { "include": "#parameter-list-words" },
                 { "include": "#body" }
             ]
         },
         {
-            "begin": "^(define)(\\s+(NAME))*\\s+(method|function)\\s+(NAME)(\\s+|$)",
+            "begin": "(?i:^(define)(\\s+(NAME))*\\s+(method|function)\\s+(NAME)(\\s+|$))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },

@@ -39,13 +39,13 @@
             "name": "meta.definition.macro.dylan",
             "patterns": [
                 {
-                    "match": "(?i:\\?((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*):)",
+                    "match": "\\?((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*):",
                     "captures": {
                         "1": { "name": "variable.other.dylan" }
                     }
                 },
                 {
-                    "match": "(?i:\\?:((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))",
+                    "match": "(?i:\\?:(expression|variable|name|token|body|case-body|macro))",
                     "captures": {
                         "1": { "name": "variable.other.dylan" }
                     }
@@ -96,7 +96,7 @@
             ]
         },
         {
-            "begin": "^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$)",
+            "begin": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
