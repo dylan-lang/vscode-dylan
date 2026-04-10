@@ -95,6 +95,24 @@
             "patterns": [
                 { "include": "#slot" }
             ]
+        },
+        {
+            "begin": "(?i:^(define)\\s+((library|module)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)))",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "4": { "name": "entity.name.type.package.dylan" }
+            },
+            "end": "(?i:^(end)(\\s+(\\3))?(\\s+(\\4))?($|(?:[\\s(),.;:#{}\\[\\]])))",
+            "endCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "5": { "name": "entity.name.type.package.dylan" }
+            },
+            "name": "meta.namespace.dylan",
+            "patterns": [
+                { "include": "#body" }
+            ]
         }
     ],
     "repository": {

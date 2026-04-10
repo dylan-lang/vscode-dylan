@@ -95,6 +95,24 @@
             "patterns": [
                 { "include": "#slot" }
             ]
+        },
+        {
+            "begin": "(?i:^(define)\\s+((library|module)\\s+(NAME)))",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "4": { "name": "entity.name.type.package.dylan" }
+            },
+            "end": "(?i:^(end)(\\s+(\\3))?(\\s+(\\4))?($|NAME_END))",
+            "endCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "5": { "name": "entity.name.type.package.dylan" }
+            },
+            "name": "meta.namespace.dylan",
+            "patterns": [
+                { "include": "#body" }
+            ]
         }
     ],
     "repository": {
