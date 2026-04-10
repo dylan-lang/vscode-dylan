@@ -24,6 +24,42 @@
         { "include": "#comment-line" },
         { "include": "#comment-block" },
         {
+            "begin": "(?i:^(define)\\s+(macro)\\s+(NAME))",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "2": { "name": "keyword.other.dylan" },
+                "3": { "name": "variable.other.dylan" }
+            },
+            "end": "(?i:^(end)(\\s+(macro))?(\\s+(\\3))?NAME_END)",
+            "endCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" }
+            },
+            "name": "meta.definition.macro.dylan",
+            "patterns": [
+                {
+                    "match": "(?i:\\?(NAME):)",
+                    "captures": {
+                        "1": { "name": "variable.other.dylan" }
+                    }
+                },
+                {
+                    "match": "(?i:\\?:(NAME))",
+                    "captures": {
+                        "1": { "name": "variable.other.dylan" }
+                    }
+                },
+                {
+                    "match": "^\\s*(NAME):\\s*$",
+                    "captures": {
+                        "1": { "name": "keyword.other.dylan" }
+                    }
+                },
+                { "include": "#body" }
+            ]
+        },
+        {
             "begin": "(?i)^(define)\\s+((thread)\\s+)?(constant|variable)\\s+(NAME)(\\s+|$)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
@@ -49,7 +85,7 @@
                 "4": { "name": "keyword.other.dylan" },
                 "5": { "name": "variable.other.dylan" }
             },
-            "end": "^(end)(\\s+(\\4))?(\\s+(\\5))?NAME_END",
+            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?NAME_END)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -62,7 +98,7 @@
         },
         {
             "comment": "define class - single line - no slots - must precede multi-line define class",
-            "match": "^(define)(\\s+(NAME))*\\s+(class)\\s+(NAME)\\s*[(]((NAME)(,\\s*(NAME))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?",
+            "match": "(?i:^(define)(\\s+(NAME))*\\s+(class)\\s+(NAME)\\s*[(]((NAME)(,\\s*(NAME))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "storage.modifier.dylan" },
@@ -85,7 +121,7 @@
                 "5": { "name": "variable.other.dylan" },
                 "7": { "name": "entity.other.inherited-class" }
             },
-            "end": "^(end)(\\s+(class))?(\\s+(\\5))?($|NAME_END)",
+            "end": "(?i:^(end)(\\s+(class))?(\\s+(\\5))?($|NAME_END))",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },

@@ -24,6 +24,42 @@
         { "include": "#comment-line" },
         { "include": "#comment-block" },
         {
+            "begin": "(?i:^(define)\\s+(macro)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "2": { "name": "keyword.other.dylan" },
+                "3": { "name": "variable.other.dylan" }
+            },
+            "end": "(?i:^(end)(\\s+(macro))?(\\s+(\\3))?(?:[\\s(),.;:#{}\\[\\]]))",
+            "endCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" }
+            },
+            "name": "meta.definition.macro.dylan",
+            "patterns": [
+                {
+                    "match": "(?i:\\?((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*):)",
+                    "captures": {
+                        "1": { "name": "variable.other.dylan" }
+                    }
+                },
+                {
+                    "match": "(?i:\\?:((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))",
+                    "captures": {
+                        "1": { "name": "variable.other.dylan" }
+                    }
+                },
+                {
+                    "match": "^\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*):\\s*$",
+                    "captures": {
+                        "1": { "name": "keyword.other.dylan" }
+                    }
+                },
+                { "include": "#body" }
+            ]
+        },
+        {
             "begin": "(?i)^(define)\\s+((thread)\\s+)?(constant|variable)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
@@ -49,7 +85,7 @@
                 "4": { "name": "keyword.other.dylan" },
                 "5": { "name": "variable.other.dylan" }
             },
-            "end": "^(end)(\\s+(\\4))?(\\s+(\\5))?(?:[\\s(),.;:#{}\\[\\]])",
+            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?(?:[\\s(),.;:#{}\\[\\]]))",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -62,7 +98,7 @@
         },
         {
             "comment": "define class - single line - no slots - must precede multi-line define class",
-            "match": "^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?",
+            "match": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "storage.modifier.dylan" },
@@ -85,7 +121,7 @@
                 "5": { "name": "variable.other.dylan" },
                 "7": { "name": "entity.other.inherited-class" }
             },
-            "end": "^(end)(\\s+(class))?(\\s+(\\5))?($|(?:[\\s(),.;:#{}\\[\\]]))",
+            "end": "(?i:^(end)(\\s+(class))?(\\s+(\\5))?($|(?:[\\s(),.;:#{}\\[\\]])))",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
