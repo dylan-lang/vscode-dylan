@@ -78,11 +78,10 @@
             ]
         },
         {
-            "begin": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(generic)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$))",
+            "begin": "(?i:^(define(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+generic)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
-                "4": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" }
+                "4": { "name": "variable.other.dylan" }
             },
             "end_": "See 'limitations' in CONTRIBUTING.rst",
             "end": ";",
@@ -97,11 +96,9 @@
         },
         {
             "comment": "define method - one line - no way to do params accurately?",
-            "match": "(?i:^(define)( +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))* +(method|function) +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*\\((.*?)\\) *(=> *\\((.*?)\\))?.*(end)(.*)(;)?$)",
+            "match": "(?i:^(define(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function))\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*\\((.*?)\\) *(=> *\\((.*?)\\))?.*(end)(.*)(;)?$)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
-                "3": { "name": "keyword.other.dylan" },
-                "4": { "name": "keyword.other.dylan" },
                 "5": { "name": "variable.other.dylan" },
                 "6": { "name": "variable.other.dylan" },
                 "9": { "name": "keyword.other.dylan" },
@@ -111,7 +108,7 @@
         },
         {
             "comment": "define method - multi line",
-            "begin": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$))",
+            "begin": "(?i:^(define(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function))\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },

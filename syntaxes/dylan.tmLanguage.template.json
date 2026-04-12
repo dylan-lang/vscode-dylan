@@ -78,11 +78,10 @@
             ]
         },
         {
-            "begin": "(?i:^(define)(\\s+(NAME))*\\s+(generic)\\s+(NAME)(\\s+|$))",
+            "begin": "(?i:^(define(\\s+(NAME))*\\s+generic)\\s+(NAME))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
-                "4": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" }
+                "4": { "name": "variable.other.dylan" }
             },
             "end_": "See 'limitations' in CONTRIBUTING.rst",
             "end": ";",
@@ -97,11 +96,9 @@
         },
         {
             "comment": "define method - one line - no way to do params accurately?",
-            "match": "(?i:^(define)( +(NAME))* +(method|function) +(NAME)\\s*\\((.*?)\\) *(=> *\\((.*?)\\))?.*(end)(.*)(;)?$)",
+            "match": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME)\\s*\\((.*?)\\) *(=> *\\((.*?)\\))?.*(end)(.*)(;)?$)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
-                "3": { "name": "keyword.other.dylan" },
-                "4": { "name": "keyword.other.dylan" },
                 "5": { "name": "variable.other.dylan" },
                 "6": { "name": "variable.other.dylan" },
                 "9": { "name": "keyword.other.dylan" },
@@ -111,7 +108,7 @@
         },
         {
             "comment": "define method - multi line",
-            "begin": "(?i:^(define)(\\s+(NAME))*\\s+(method|function)\\s+(NAME)(\\s+|$))",
+            "begin": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME)(\\s+|$))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
