@@ -129,30 +129,26 @@
         },
         {
             "comment": "define class - single line - no slots - must precede multi-line define class",
-            "match": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?;$)",
+            "match": "(?i:^(define(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\4))?;$)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
-                "3": { "name": "storage.modifier.dylan" },
-                "4": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "6": { "name": "entity.other.inherited-class" },
-                "10": { "name": "keyword.other.dylan" },
-                "12": { "name": "keyword.other.dylan" },
-                "14": { "name": "variable.other.dylan" }
+                "4": { "name": "variable.other.dylan" },
+                "5": { "name": "entity.other.inherited-class" },
+                "9": { "name": "keyword.other.dylan" },
+                "11": { "name": "keyword.other.dylan" },
+                "13": { "name": "variable.other.dylan" }
             },
             "name": "meta.definition.class.dylan"
         },
         {
             "comment": "define class - multi line - must follow single line define class",
-            "begin": "^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)($|\\s+[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)])?",
+            "begin": "^(define(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)($|\\s+[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)])?",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
-                "3": { "name": "storage.modifier.dylan" },
-                "4": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "7": { "name": "entity.other.inherited-class" }
+                "4": { "name": "variable.other.dylan" },
+                "6": { "name": "entity.other.inherited-class" }
             },
-            "end": "(?i:^(end)(\\s+(class))?(\\s+(\\5))?($|(?:[\\s(),.;:#{}\\[\\]])))",
+            "end": "(?i:^(end)(\\s+(class))?(\\s+(\\4))?;$)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
