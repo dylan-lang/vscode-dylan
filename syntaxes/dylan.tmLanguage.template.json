@@ -176,6 +176,26 @@
             "patterns": [
                 { "include": "#body" }
             ]
+        },
+        {
+            "comment": "define [adjectives] USER-MACRO ... end",
+            "begin": "(?i:^(define)((\\s+(NAME))*)\\s+(NAME)\\s+(NAME))",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "2": { "name": "keyword.other.dylan" },
+                "5": { "name": "keyword.other.dylan" },
+                "6": { "name": "variable.other.dylan" }
+            },
+            "end": "(?i:^(end)(\\s+(\\5))?(\\s+(\\6))?;$)",
+            "endCaptures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" }
+            },
+            "name": "meta.definition.macro-call.dylan",
+            "patterns": [
+                { "include": "#body" }
+            ]
         }
     ],
     "repository": {
