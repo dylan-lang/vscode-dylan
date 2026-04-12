@@ -72,7 +72,7 @@
             "endCaptures": {
                 "0": { "name": "meta.punctuation.dylan" }
             },
-            "name": "meta.definition.function.dylan",
+            "name": "meta.definition.variable.dylan",
             "patterns": [
                 { "include": "#body" }
             ]
@@ -89,13 +89,28 @@
             "endCaptures": {
                 "0": { "name": "meta.punctuation.dylan" }
             },
-            "name": "meta.definition.variable.dylan",
+            "name": "meta.definition.function.dylan",
             "patterns": [
                 { "include": "#parameter-list-words" },
                 { "include": "#body" }
             ]
         },
         {
+            "comment": "define method - one line - no way to do params accurately?",
+            "match": "(?i:^(define)( +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))* +(method|function) +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*\\((.*?)\\) *(=> *\\((.*?)\\))?.*(end)(.*)(;)?$)",
+            "captures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "4": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" },
+                "6": { "name": "variable.other.dylan" },
+                "9": { "name": "keyword.other.dylan" },
+                "11": { "name": "meta.punctuation.dylan" }
+            },
+            "name": "meta.definition.function.dylan"
+        },
+        {
+            "comment": "define method - multi line",
             "begin": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
@@ -117,7 +132,7 @@
         },
         {
             "comment": "define class - single line - no slots - must precede multi-line define class",
-            "match": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?)",
+            "match": "(?i:^(define)(\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(class)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)\\s*[(](((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(,\\s*((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?;$)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "storage.modifier.dylan" },

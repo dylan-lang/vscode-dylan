@@ -96,6 +96,21 @@
             ]
         },
         {
+            "comment": "define method - one line - no way to do params accurately?",
+            "match": "(?i:^(define)( +(NAME))* +(method|function) +(NAME)\\s*\\((.*?)\\) *(=> *\\((.*?)\\))?.*(end)(.*)(;)?$)",
+            "captures": {
+                "1": { "name": "keyword.other.dylan" },
+                "3": { "name": "keyword.other.dylan" },
+                "4": { "name": "keyword.other.dylan" },
+                "5": { "name": "variable.other.dylan" },
+                "6": { "name": "variable.other.dylan" },
+                "9": { "name": "keyword.other.dylan" },
+                "11": { "name": "meta.punctuation.dylan" }
+            },
+            "name": "meta.definition.function.dylan"
+        },
+        {
+            "comment": "define method - multi line",
             "begin": "(?i:^(define)(\\s+(NAME))*\\s+(method|function)\\s+(NAME)(\\s+|$))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
@@ -117,7 +132,7 @@
         },
         {
             "comment": "define class - single line - no slots - must precede multi-line define class",
-            "match": "(?i:^(define)(\\s+(NAME))*\\s+(class)\\s+(NAME)\\s*[(]((NAME)(,\\s*(NAME))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?)",
+            "match": "(?i:^(define)(\\s+(NAME))*\\s+(class)\\s+(NAME)\\s*[(]((NAME)(,\\s*(NAME))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\5))?;$)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "storage.modifier.dylan" },
