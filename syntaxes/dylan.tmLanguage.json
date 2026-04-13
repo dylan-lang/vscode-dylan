@@ -200,6 +200,8 @@
     ],
     "repository": {
         "body": {
+            "comment-1": "order is important. ex: comments precede strings because it is",
+            "comment-2": "far more common for comments to contain strings than vise versa",
             "patterns": [
                 { "include": "#let" },
                 { "include": "#comment-line" },
@@ -243,12 +245,14 @@
             }
         },
         "comment-line": {
-            "match": "^\\s*(//.*)$",
+            "match": "((^|(?:[\\s(),.;:#{}\\[\\]]))//.*)$",
             "name": "comment.line.double-slash.dylan"
         },
         "comment-block": {
-            "begin": "(?<=^|\\s|\\()/\\*",
-            "end": "\\*/"
+            "begin": "(^|(?:[\\s(),.;:#{}\\[\\]]))/\\*",
+            "end-comment": "The greedy .* makes one-line nested comments work.",
+            "end": ".*\\*/((?:[\\s(),.;:#{}\\[\\]])|$)",
+            "name": "comment.block.dylan"
         },
         "string": {
             "begin": "(#[rR])?\"",

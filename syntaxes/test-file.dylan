@@ -46,9 +46,9 @@ define variable *var*
     end;
 
 /* At the end of the day is the beginning of the day. */
-/* I /* am */ nested. */
-/* I
-   /* am */ nested
+/* I am /* nested */ on one line. */
+/* I am
+   /* nested */
    on multiple lines. */
 
 // define {function,method} are the same...
