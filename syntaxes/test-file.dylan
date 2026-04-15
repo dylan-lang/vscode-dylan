@@ -39,11 +39,11 @@ end module foo;                 // comment
 define constant $foo :: <int>    = 100_000;        // comment
 define constant $bar :: <string> = "string";       // comment
 define constant $pi              = #x13A * 1.0d-2; // comment
-define variable *var*
-  = begin                       // x
-      let x = f();              // y
-      x + y
-    end;
+define variable *var*           // comment
+  = begin                       // comment
+      let x = f();              // comment
+      x + y                     // comment
+    end;                        // comment
 
 /* At the end of the day is the beginning of the day. */
 /* I am /* nested */ on one line. */
@@ -52,7 +52,7 @@ define variable *var*
    on multiple lines. */
 
 // define {function,method} are the same...
-define method on-one-line (a :: <a>, b :: <b>, #rest r, #key k) => (r :: <r>) list(a, b, r, k) end function on-one-line;
+define method on-one-line (a :: <a>, b :: <b>, #rest r, #key k) => (r :: <r>) list(a, b, r, k) end method on-one-line; // comment
 
 define sealed inline method foo           // a
     (a :: <a>, b :: <b>, #rest r, #key k) // b
@@ -66,9 +66,11 @@ define method foo                         // a
   list(a, b, /* \o/ */ r, k)              // d
 end function foo;    // "function foo" shouldn't highlight because doesn't match "method foo"
 
+define class <c> (<d>) end class <c>;     // comment
+
 define open abstract class <c> (<d>, <e>) // c should be variable, d and e inherited-class
   slot foo;                                    // a
-  constant sealed slot foo = #b1010_0000_abcd; // b
+  constant sealed slot foo = #b1010_0000;      // b
   slot %bar,                                   // c
     init-value: method (x)                     // d
                   local method m (y) => (z)    // e
