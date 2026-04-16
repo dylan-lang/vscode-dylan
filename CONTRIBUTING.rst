@@ -15,7 +15,8 @@ highlighting.  From what I (cgay) have discovered so far, it works as follows...
 1. Each language config (e.g., dylan.tmLanguage.json) has a tree of rules (or patterns).
 
 2. For each **line** in a Dylan source file the top-level patterns are applied in order
-   and the first one to match is selected.
+   and the first one to match is selected.  Obviously this means order is important.
+   More specific rules should come first.
 
 3. A rule may have subrules.  Once a rule has matched a line its subrules are applied
 **to the same line again** (starting after the "begin" match, I believe) and then to each
@@ -146,7 +147,7 @@ Developing Rules
   to remove all patterns from the "repository.body" rule to make the highlighting from
   the rule you're working on more obvious.
 
-* Do not put a patterns array at the top level of a one-pattern match rule. It doesn’t
+* Do not put a "patterns" array at the top level of a one-pattern match rule. It doesn’t
   generate any explicit error, but it doesn’t work correctly either.
 
 References

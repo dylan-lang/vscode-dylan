@@ -34,6 +34,11 @@ define module foo               // comment
     six;                        // comment
 end module foo;                 // comment
 
+define generic ggg (x :: <t>, y :: <t>, z) => (a, b, c :: <t>);  // comment
+define generic ggg           // comment
+    (x :: <t>, y :: <t>, z)  // comment
+ => (a, b, c :: <t>);        // comment
+
 // The rules for define {constant,variable} are the same.
 // If that changes, this should be duplicated more for define variable.
 define constant $foo :: <int>    = 100_000;        // comment

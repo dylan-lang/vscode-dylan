@@ -93,7 +93,9 @@
             },
             "name": "meta.definition.function.dylan",
             "patterns": [
+                { "include": "#special-parameter-binding" },
                 { "include": "#parameter-list-words" },
+                { "include": "#untyped-parameter-binding" },
                 { "include": "#body" }
             ]
         },
@@ -128,6 +130,7 @@
             },
             "name": "meta.definition.function.dylan",
             "patterns": [
+                { "include": "#special-parameter-binding" },
                 { "include": "#parameter-list-words" },
                 { "include": "#body" }
             ]
@@ -210,12 +213,13 @@
     ],
     "repository": {
         "body": {
-            "comment-1": "order is important. ex: comments precede strings because it is",
+            "comment-1": "Order is important! Ex: comments precede strings because it is",
             "comment-2": "far more common for comments to contain strings than vise versa",
+            "comment-3": "and because we don't want to colorize inside comments.",
             "patterns": [
-                { "include": "#let" },
                 { "include": "#comment-line" },
                 { "include": "#comment-block" },
+                { "include": "#binding" },
                 { "include": "#string" },
                 { "include": "#symbol" },
                 { "include": "#boolean" },
@@ -249,13 +253,36 @@
                 { "include": "#body" }
             ]
         },
-        "let": {
-            "match": "\\s(let)\\s+((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)($|\\s+(::\\s+(\\S+)\\s+)?)",
+        "binding": {
+            "match": "(?i:((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*) +(::) +(false-or\\((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*\\)|type-union\\(.*?\\)|(?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))",
             "captures": {
-                "1": { "name": "keyword.other.dylan" },
+                "1": { "name": "variable.other.dylan" },
+                "2": { "name": "meta.punctuation.dylan" },
+                "3": { "name": "storage.type.dylan" }
+            }
+        },
+        "special-parameter-binding": {
+            "comment": "must come before parameter-list-words",
+            "match": "(?i:(#rest|#key|#next) +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)( +(::) +(false-or\\((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*\\)|type-union\\(.*?\\)|(?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))?)",
+            "captures": {
+                "1": { "name": "keyword.control.dylan" },
                 "2": { "name": "variable.other.dylan" },
+                "4": { "name": "meta.punctuation.dylan" },
                 "5": { "name": "storage.type.dylan" }
             }
+        },
+        "untyped-parameter-binding": {
+            "comment": "this is a very broad rule so only used in define generic, which has no body",
+            "match": "(?<=[,(]) *((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)([,)])",
+            "captures": {
+                "1": { "name": "variable.other.dylan" },
+                "2": { "name": "meta.punctuation.dylan" }
+            }
+        },
+        "parameter-list-words": {
+            "comment": "must come after special-parameter-binding",
+            "match": "(?i:#next|#rest|#key|#all-keys)",
+            "name": "keyword.control.dylan"
         },
         "comment-line": {
             "match": "((^|(?:[\\s(),.;:#{}\\[\\]]))//.*)$",
@@ -302,10 +329,6 @@
         "character": {
             "match": "'(?i:\\\\<[0-9a-f]*>|\\\\.|.)'",
             "name": "constant.character.dylan"
-        },
-        "parameter-list-words": {
-            "match": "(?i:#next|#rest|#key|#all-keys)",
-            "name": "keyword.control.dylan"
         },
         "drm-control-flow-words": {
             "match": "(?<=^|[,.()\\s])(above|afterwards|begin|below|block|by|case|cleanup|else|elseif|exception|finally|for|from|keyed-by|if|in|otherwise|select|then|to|unless|until:?|using|when|while:?)(?=$|[;,()\\s])",
