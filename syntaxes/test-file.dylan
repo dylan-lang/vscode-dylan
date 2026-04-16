@@ -43,7 +43,7 @@ define generic ggg           // comment
 // If that changes, this should be duplicated more for define variable.
 define constant $foo :: <int>    = 100_000;        // comment
 define constant $bar :: <string> = "string";       // comment
-define constant $pi              = #x13A * 1.0d-2; // comment
+define constant $pi :: <double>  = #x13A * 1.0d-2; // comment
 define variable *var*           // comment
   = begin                       // comment
       let x = f();              // comment

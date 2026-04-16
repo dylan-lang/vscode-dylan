@@ -61,14 +61,14 @@
             ]
         },
         {
-            "begin": "(?i:^(define)\\s+((thread)\\s+)?(constant|variable)\\s+(NAME)(\\s+(=))?\\s*(//.*)?)",
+            "begin": "(?i:^(define)\\s+((thread)\\s+)?(constant|variable)\\s+(NAME)( +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME))?)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
                 "4": { "name": "storage.modifier.dylan" },
                 "5": { "name": "variable.other.dylan" },
                 "7": { "name": "meta.punctuation.dylan" },
-                "8": { "name": "comment.line.slash-slash.dylan" }
+                "8": { "name": "storage.type.dylan" }
             },
             "end_": "See 'limitations' in CONTRIBUTING.rst",
             "end": ";",
