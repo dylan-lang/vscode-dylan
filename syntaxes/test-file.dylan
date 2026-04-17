@@ -19,7 +19,7 @@ end library foo;                // comment
 
 define module foo               // comment
   use bar;                      // comment
-  use baz, prefix: "baz/";      // comment
+  use baz, prefix: "aaa\<9F>bbb\nccc\\ddd";      // comment
   use quux,
     import: { my, dog, has, fleas };
   use zoot,
@@ -41,14 +41,36 @@ define generic ggg           // comment
 
 // The rules for define {constant,variable} are the same.
 // If that changes, this should be duplicated more for define variable.
-define constant $foo :: <int>    = 100_000;        // comment
-define constant $bar :: <string> = "string";       // comment
-define constant $pi :: <double>  = #x13A * 1.0d-2; // comment
+define constant $foo :: <int>    = 100;            // non DRM type
+define constant $bar :: <string> = "abc";          // DRM type
+define variable *bar*            = 1;
+define thread variable *ttt*     = #"ttt";         // comment 
+define constant $pi :: <double>  = #x13A * 1.0d-2;     // comment
 define variable *var*           // comment
   = begin                       // comment
       let x = f();              // comment
       x + y                     // comment
     end;                        // comment
+
+define function literals ()
+  list(100_000,
+       1.0d-2 + -3.14E9,
+       #b10_01_10,
+       #o777_000,
+       #xdead_BEEF_09,
+       "abc\n",
+       """xx\<09bE>yy""",
+       """
+        abc
+       """,
+       #r"abc",
+       #R"abc",
+       #r"abc\n",
+       'a',
+       '\a',
+       '\<abc9>',
+       );
+end function literals;
 
 /* At the end of the day is the beginning of the day. */
 /* I am /* nested */ on one line. */
@@ -140,4 +162,3 @@ define enum my-enum ()          // comment
 end enum my-enum;               // comment
 
 define sealed domain make (singleton(<abc>));
-

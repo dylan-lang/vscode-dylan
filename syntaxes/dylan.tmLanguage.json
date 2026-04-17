@@ -221,6 +221,7 @@
                 { "include": "#comment-block" },
                 { "include": "#binding" },
                 { "include": "#string" },
+                { "include": "#raw-string" },
                 { "include": "#symbol" },
                 { "include": "#boolean" },
                 { "include": "#hex-oct-bin" },
@@ -295,23 +296,28 @@
             "name": "comment.block.dylan"
         },
         "string": {
-            "begin": "(#[rR])?\"",
-            "end": "\"",
+            "begin": "\"+",
+            "end": "\\0",
             "name": "string.quoted.double.dylan",
             "patterns": [
                 { "include": "#escape" }
             ]
         },
+        "raw-string": {
+            "begin": "(#[rR])?(\"+)",
+            "end": "\\2",
+            "name": "string.quoted.double.dylan"
+        },
         "symbol": {
-            "begin": "#\"+",
-            "end": "\"+",
+            "begin": "#(\"+)",
+            "end": "(\\1)",
             "name": "constant.other.dylan",
             "patterns": [
                 { "include": "#escape" }
             ]
         },
         "escape": {
-            "match": "\\\\(?i:.|<[0-9a-f]*>)",
+            "match": "\\\\(<[0-9a-fA-F]+>|[\\\\'\"abefnrt0])",
             "name": "constant.character.escape.dylan"
         },
         "boolean": {
@@ -327,7 +333,7 @@
             "name": "constant.numeric.dylan"
         },
         "character": {
-            "match": "'(?i:\\\\<[0-9a-f]*>|\\\\.|.)'",
+            "match": "'(\\\\(<[0-9a-fA-F]+>|[\\\\'\"abefnrt0]))|.'",
             "name": "constant.character.dylan"
         },
         "drm-control-flow-words": {
