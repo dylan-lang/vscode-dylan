@@ -114,7 +114,7 @@
         },
         {
             "comment": "define method - multi line",
-            "begin": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME)\\s*(\\s+(//.*))?$)",
+            "begin": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -122,7 +122,7 @@
                 "5": { "name": "variable.other.dylan" },
                 "7": { "name": "comment.line.double-slash.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?NAME_END)",
+            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -333,7 +333,7 @@
             "name": "constant.numeric.dylan"
         },
         "character": {
-            "match": "'(\\\\(<[0-9a-fA-F]+>|[\\\\'\"abefnrt0]))|.'",
+            "match": "'((\\\\(<[0-9a-fA-F]+?>|[\\\\'\"abefnrt0]))|[^\\\\])'",
             "name": "constant.character.dylan"
         },
         "drm-control-flow-words": {

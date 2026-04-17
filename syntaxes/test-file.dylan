@@ -68,7 +68,7 @@ define function literals ()
        #r"abc\n",
        'a',
        '\a',
-       '\<abc9>',
+       '\<abc9>'
        );
 end function literals;
 
