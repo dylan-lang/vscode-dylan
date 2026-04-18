@@ -30,7 +30,7 @@
                 "2": { "name": "keyword.other.dylan" },
                 "3": { "name": "variable.other.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(macro))?(\\s+(\\3))?NAME_END)",
+            "end": "(?i:^(end)(\\s+(macro))?(\\s+(\\3))?)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -71,7 +71,7 @@
                 "8": { "name": "storage.type.dylan" }
             },
             "end_": "See 'limitations' in CONTRIBUTING.rst",
-            "end": ";",
+            "end": "(?=^\\S)",
             "endCaptures": {
                 "0": { "name": "meta.punctuation.dylan" }
             },
@@ -100,29 +100,14 @@
             ]
         },
         {
-            "comment": "define method - one line - no way to do params accurately?",
-            "match": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME)\\s*\\(.*?\\) *(=> *\\(.*?\\))?.*(end)(\\s+(\\4))?(\\s+(\\5))?NAME_END?\\s*(//.*)?$)",
-            "captures": {
-                "1": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "7": { "name": "keyword.other.dylan" },
-                "9": { "name": "keyword.other.dylan" },
-                "11": { "name": "variable.other.dylan" },
-                "12": { "name": "comment.line.double-slash.dylan" }
-            },
-            "name": "meta.definition.function.dylan"
-        },
-        {
-            "comment": "define method - multi line",
             "begin": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
                 "4": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "7": { "name": "comment.line.double-slash.dylan" }
+                "5": { "name": "variable.other.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?)",
+            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?|(?=^\\S))",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -136,39 +121,24 @@
             ]
         },
         {
-            "comment": "define class - single line - no slots - must precede multi-line define class",
-            "match": "(?i:^(define(\\s+(NAME))*\\s+class)\\s+(NAME)\\s*[(]((NAME)(,\\s*(NAME))*)[)]\\s*(end)(\\s+(class))?(\\s+(\\4))?\\s*(;)\\s*(//.*)?$)",
-            "captures": {
-                "1": { "name": "keyword.other.dylan" },
-                "4": { "name": "variable.other.dylan" },
-                "5": { "name": "entity.other.inherited-class" },
-                "9": { "name": "keyword.other.dylan" },
-                "11": { "name": "keyword.other.dylan" },
-                "13": { "name": "variable.other.dylan" },
-                "14": { "name": "meta.punctuation.dylan" },
-                "15": { "name": "comment.line.double-slash.dylan" }
-            },
-            "name": "meta.definition.class.dylan"
-        },
-        {
-            "comment": "define class - multi line - must be after single line define class",
-            "begin": "(?i:^(define(\\s+(NAME))*\\s+class)\\s+(NAME)(\\s+[(]((NAME)(,\\s*(NAME))*)[)])?\\s*(//.*)$)",
+            "begin": "(?i:^(define\\s+(NAME\\s+)*class)\\s+(NAME)(\\s+[(](NAME(,\\s*(NAME))*)[)])?)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
-                "4": { "name": "variable.other.dylan" },
-                "6": { "name": "entity.other.inherited-class" },
-                "10": { "name": "comment.line.double-slash.dylan" }
+                "3": { "name": "variable.other.dylan" },
+                "5": { "name": "entity.other.inherited-class" }
             },
-            "end": "(?i:^(end)(\\s+(class))?(\\s+(\\4))?;\\s*(//.*)?$)",
+            "end": "(?i:(^(end)(\\s+(class))?(\\s+(\\3))?)|(?=^\\S))",
             "endCaptures": {
-                "1": { "name": "keyword.other.dylan" },
-                "3": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "6": { "name": "comment.line.double-slash.dylan" }
+                "2": { "name": "keyword.other.dylan" },
+                "4": { "name": "keyword.other.dylan" },
+                "6": { "name": "variable.other.dylan" }
             },
             "name": "meta.definition.class.dylan",
             "patterns": [
-                { "include": "#slot" }
+                { "include": "#slot" },
+                { "include": "#comment-line" },
+                { "include": "#comment-block" },
+                { "include": "#drm-control-flow-words" }
             ]
         },
         {
@@ -178,7 +148,7 @@
                 "3": { "name": "keyword.other.dylan" },
                 "4": { "name": "entity.name.type.package.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\3))?(\\s+(\\4))?($|NAME_END))",
+            "end": "(?i:^(end)(\\s+(\\3))?(\\s+(\\4))?)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -198,12 +168,11 @@
                 "5": { "name": "keyword.other.dylan" },
                 "6": { "name": "variable.other.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\5))?(\\s+(\\6))?\\s*;\\s*(//.*)?)",
+            "end": "(?i:^(end)(\\s+(\\5))?(\\s+(\\6))?)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "6": { "name": "comment.line.slash-slash.dylan" }
+                "5": { "name": "variable.other.dylan" }
             },
             "name": "meta.definition.macro-call.dylan",
             "patterns": [
@@ -286,13 +255,13 @@
             "name": "keyword.control.dylan"
         },
         "comment-line": {
-            "match": "((^|NAME_END)//.*)$",
+            "match": "//.*$",
             "name": "comment.line.double-slash.dylan"
         },
         "comment-block": {
-            "begin": "(^|NAME_END)/\\*",
+            "begin": "/\\*",
             "end-comment": "The greedy .* makes one-line nested comments work.",
-            "end": ".*\\*/(NAME_END|$)",
+            "end": ".*\\*/",
             "name": "comment.block.dylan"
         },
         "string": {
@@ -337,7 +306,7 @@
             "name": "constant.character.dylan"
         },
         "drm-control-flow-words": {
-            "match": "(?<=^|[,.()\\s])(above|afterwards|begin|below|block|by|case|cleanup|else|elseif|exception|finally|for|from|keyed-by|if|in|otherwise|select|then|to|unless|until:?|using|when|while:?)(?=$|[;,()\\s])",
+            "match": "(?<=^|[,.()\\s])(above|afterwards|begin|below|block|by|case|cleanup|else|elseif|end|exception|finally|for|from|keyed-by|if|in|otherwise|select|then|to|unless|until:?|using|when|while:?)(?=$|[;,()\\s])",
             "name": "keyword.control.dylan"
         },
         "drm-definer-words": {

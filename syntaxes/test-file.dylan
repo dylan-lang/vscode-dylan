@@ -62,10 +62,12 @@ define function literals ()
        """xx\<09bE>yy""",
        """
         abc
-       """,
+        """,
        #r"abc",
        #R"abc",
        #r"abc\n",
+       #r"""abc""",
+       "https://test",  // test that // in string doesn't act as comment
        'a',
        '\a',
        '\<abc9>'
@@ -76,7 +78,7 @@ end function literals;
 /* I am /* nested */ on one line. */
 /* I am
    /* nested */
-   on multiple lines. */
+   on multiple lines and I fail. */
 
 // define {function,method} are the same...
 define method on-one-line (a :: <a>, b :: <b>, #rest r, #key k) => (r :: <r>) list(a, b, r, k) end method on-one-line; // comment
