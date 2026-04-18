@@ -204,21 +204,15 @@
         },
         "slot": {
             "name": "meta.definition.slot.dylan",
-            "begin": "(?i:^((\\s+(NAME))*)\\s+(slot)\\s+(NAME)(\\s+(::)\\s+(NAME))?.*?(//.*)?)",
+            "begin": "(?i:^\\s+((NAME\\s+)*)(slot)\\s+(NAME)(\\s+(::)\\s+(NAME))?)",
             "beginCaptures": {
                 "1": { "name": "storage.modifier.dylan" },
-                "4": { "name": "keyword.other.dylan" },
-                "5": { "name": "variable.other.dylan" },
-                "7": { "name": "meta.punctuation.dylan" },
-                "8": { "name": "storage.type.dylan" },
-                "9": { "name": "comment.line.double-slash.dylan" }
+                "3": { "name": "keyword.other.dylan" },
+                "4": { "name": "variable.other.dylan" },
+                "6": { "name": "meta.punctuation.dylan" },
+                "7": { "name": "storage.type.dylan" }
             },
-            "end_": "See 'limitations' in CONTRIBUTING.rst",
-            "end": "(;)\\s*(//.*)?$",
-            "endCaptures": {
-                "1": { "name": "meta.punctuation.dylan" },
-                "2": { "name": "comment.line.double-slash.dylan" }
-            },
+            "end": "(?i:(?=^.*slot|^\\S))",
             "patterns": [
                 { "include": "#body" }
             ]
