@@ -10,7 +10,7 @@
         { "include": "#comment-line" },
         { "include": "#comment-block" },
         {
-            "begin": "(?i)^(define)\\s+((thread)\\s+)?(constant|variable)\\s+((?:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$)",
+            "begin": "(?i)^(define)\\s+((thread)\\s+)?(constant|variable)\\s+(NAME)(\\s+|$)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -28,7 +28,7 @@
             ]
         },
         {
-            "begin": "^(define)(\\s+((?:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))*\\s+(method|function|generic)\\s+((?:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)(\\s+|$)",
+            "begin": "^(define)(\\s+(NAME))*\\s+(method|function|generic)\\s+(NAME)(\\s+|$)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -36,7 +36,7 @@
                 "5": { "name": "variable.other.dylan" }
             },
             "end-saved": "^(end)(\\s+(\\4))?",
-            "end": "^(end)(\\s+(\\4))?(\\s+(\\5))?((?:[\\s(),.;:#{}\\[\\]]))",
+            "end": "^(end)(\\s+(\\4))?(\\s+(\\5))?NAME_END",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -57,7 +57,7 @@
             ]
         },
         "let": {
-            "match": "\\s(let)\\s+((?:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)($|\\s+(::\\s+(\\S+)\\s+)?)",
+            "match": "\\s(let)\\s+(NAME)($|\\s+(::\\s+(\\S+)\\s+)?)",
             "captures": {
                 "1": { "name": "keyword.other.dylan" },
                 "2": { "name": "variable.other.dylan" },
