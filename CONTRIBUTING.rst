@@ -19,9 +19,9 @@ highlighting.  From what I (cgay) have discovered so far, it works as follows...
    More specific rules should come first.
 
 3. A rule may have subrules.  Once a rule has matched a line its subrules are applied
-**to the same line again** (starting after the "begin" match, I believe) and then to each
-line between the "begin" and "end" patterns.  Once a rule has matched, that source text
-is effectively "consumed" and will not be matched against any other rule.
+   **to the same line again** (starting after the "begin" match, I believe) and then to
+   each line between the "begin" and "end" patterns.  Once a rule has matched, that
+   source text is effectively "consumed" and will not be matched against any other rule.
 
 4. When a rule is matched VS Code assigns a scope, like "meta.function", based on the
    "name" attribute of the rule or one of the "captures", to the span of text between its
@@ -29,83 +29,8 @@ is effectively "consumed" and will not be matched against any other rule.
    styles can be assigned based on any rule in the stack with the most specific scope
    (the one assigned by the innermost rule) taking precedence.
 
-   *You can use the "Developer: Inspect Editor Tokens and Scopes" command to view this
-   stack for any source code token, which is extremely helpful for debugging the grammar.*
-
-Limitations
------------
-
-The algorithm described above might seem quite elegant but in the end it is just using
-regular expressions to match **isolated lines** of text.  This means that when writing an
-"end" pattern we are in trouble.  First consider an easy case:
-
-.. code:: dylan
-
-   define function foo ()
-     body
-   end;
-
-Here we can match "^define " and "^end;" to trivially delimit the entire function.  Now
-consider ``define constant``:
-
-.. code:: dylan
-
-   define constant $foo = 1;
-
-   define constant $bar
-     = begin
-         let x = f();
-         something(x);
-       end;
-
-How do we find the end of the constant definition?  To do it correctly we need to find
-the end of an arbitrary Dylan expression which is not possible with a regex looking at
-one line at a time, so we're left with trying to use heuristics.  In this particular case
-maybe the best we can do is look for the first semicolon, which is obviously wrong for
-``$bar`` above, but it probably works for most constant definitions.
-
-Next you might consider looking for the subsequent ``^define``, but this doesn't work
-either because it *consumes* the following ``define`` token, which means the following
-definition will not be matched to our rules.
-
-Maybe looking for a blank line is better; it should work *most of the time*.
-
-Next consider these three ways of formatting a function:
-
-.. code:: dylan
-
-   define function foo (a, b :: <int>) => () if (a) a + b end end;
-
-   define function foo
-       (a, b :: <int>) => ()
-     if (a) a + b end
-   end;
-
-   define function foo
-       (a, b :: <int>)
-    => ()
-     if (a) a + b end
-   end;
-
-How can we reliably find the end of the function?  If we try to use a single rule with
-"begin" matching "define function foo" and "end" matching "^end" obviously it won't match
-the one-line definition.  If we try to match an arbitrary "end" (without ``^``) we will
-incorrectly match the ``if``'s "end".
-
-One solution is to use two rules: one for single-line functions and another for
-multi-line functions, but the single-line rule has its own problems....
-
-In a one-line rule (i.e., using "match") there is no way to apply other rules to
-arbitrary parts of the text; we can only use one regular expression.  We could make this
-work for parameters **if** VS Code would correctly assign scopes to groups that have
-multiple matches, like ``(((NAME) :: (NAME))*)``, but as far as I can tell it will only
-assign a scope to the **last** element that our ``*`` pattern matched, i.e., the final
-parameter.
-
-Similar problems apply to the parameter lists: one line or multi-line?  The complexity
-explosion is real.  I (cgay) am mostly relying on making simplifying assumptions such as
-that anyone with any taste ``;-)`` will put params and return values on lines by
-themselves if they're at all complex.
+   *Use the "Developer: Inspect Editor Tokens and Scopes" command to view this stack for
+   any source code token, which is extremely helpful for debugging the grammar.*
 
 Developing Rules
 ----------------
@@ -149,6 +74,15 @@ Developing Rules
 
 * Do not put a "patterns" array at the top level of a one-pattern match rule. It doesn’t
   generate any explicit error, but it doesn’t work correctly either.
+
+* Sometimes there is no definitive way to find the end of a code structure.  Take
+  ``define variable`` as an example.  It ends after the value expression, which could be
+  any valid Dylan expression followed by a semicolon.  Matching ";" could obviously have
+  false matches within the value expression.  The solution is to use look-ahead in the
+  "end" regular expression, which doesn't consume its match group.  In Dylan it is
+  generally safe to assume that all lines within a definition begin with whitespace, so
+  it generally works to look for the next line that **does not** start with whitespace.
+  See examples in the grammar file using look-ahead: ``(?=...)``
 
 References
 ==========
