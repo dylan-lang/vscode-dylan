@@ -8,7 +8,7 @@
     "name": "Dylan",
     "patterns": [
         {
-            "match": "(?i:^(module):\\s+(NAME))",
+            "match": "(?i)^(module):\\s+(NAME)",
             "captures": {
                 "1": { "name": "keyword.package.dylan" },
                 "2": { "name": "entity.name.type.package.dylan" }
@@ -16,7 +16,7 @@
         },
         {
             "comment": "other headers besides Module",
-            "match": "(?i:^([a-z][-a-z0-9]*):)",
+            "match": "(?i)^([a-z][-a-z0-9]*):",
             "captures": {
                 "1": { "name": "keyword.package.dylan" }
             }
@@ -24,13 +24,13 @@
         { "include": "#comment-line" },
         { "include": "#comment-block" },
         {
-            "begin": "(?i:^(define)\\s+(macro)\\s+(NAME))",
+            "begin": "(?i)^(define)\\s+(macro)\\s+(NAME)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "2": { "name": "keyword.other.dylan" },
                 "3": { "name": "variable.other.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(macro))?(\\s+(\\3))?)",
+            "end": "(?i)^(end)(\\s+(macro))?(\\s+(\\3))?",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -45,7 +45,7 @@
                     }
                 },
                 {
-                    "match": "(?i:\\?:(expression|variable|name|token|body|case-body|macro))",
+                    "match": "(?i)\\?:(expression|variable|name|token|body|case-body|macro)",
                     "captures": {
                         "1": { "name": "variable.other.dylan" }
                     }
@@ -61,7 +61,7 @@
             ]
         },
         {
-            "begin": "(?i:^(define)\\s+((thread)\\s+)?(constant|variable)\\s+(NAME)( +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME))?)",
+            "begin": "(?i)^(define)\\s+((thread)\\s+)?(constant|variable)\\s+(NAME)( +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME))?",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -81,7 +81,7 @@
             ]
         },
         {
-            "begin": "(?i:^(define(\\s+(NAME))*\\s+generic)\\s+(NAME))",
+            "begin": "(?i)^(define(\\s+(NAME))*\\s+generic)\\s+(NAME)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "4": { "name": "variable.other.dylan" }
@@ -100,14 +100,14 @@
             ]
         },
         {
-            "begin": "(?i:^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME))",
+            "begin": "(?i)^(define(\\s+(NAME))*\\s+(method|function))\\s+(NAME)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
                 "4": { "name": "keyword.other.dylan" },
                 "5": { "name": "variable.other.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\4))?(\\s+(\\5))?|(?=^\\S))",
+            "end": "(?i)^(end)(\\s+(\\4))?(\\s+(\\5))?|(?=^\\S)",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -121,13 +121,13 @@
             ]
         },
         {
-            "begin": "(?i:^(define\\s+(NAME\\s+)*class)\\s+(NAME)(\\s+[(](NAME(,\\s*(NAME))*)[)])?)",
+            "begin": "(?i)^(define\\s+(NAME\\s+)*class)\\s+(NAME)(\\s+[(](NAME(,\\s*(NAME))*)[)])?",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "variable.other.dylan" },
                 "5": { "name": "entity.other.inherited-class" }
             },
-            "end": "(?i:(^(end)(\\s+(class))?(\\s+(\\3))?)|(?=^\\S))",
+            "end": "(?i)(^(end)(\\s+(class))?(\\s+(\\3))?)|(?=^\\S)",
             "endCaptures": {
                 "2": { "name": "keyword.other.dylan" },
                 "4": { "name": "keyword.other.dylan" },
@@ -142,13 +142,13 @@
             ]
         },
         {
-            "begin": "(?i:^(define)\\s+((library|module)\\s+(NAME)))",
+            "begin": "(?i)^(define)\\s+((library|module)\\s+(NAME))",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
                 "4": { "name": "entity.name.type.package.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\3))?(\\s+(\\4))?)",
+            "end": "(?i)^(end)(\\s+(\\3))?(\\s+(\\4))?",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -161,14 +161,14 @@
         },
         {
             "comment": "define [adjectives] USER-MACRO ... end",
-            "begin": "(?i:^(define)((\\s+(NAME))*)\\s+(NAME)\\s+(NAME))",
+            "begin": "(?i)^(define)((\\s+(NAME))*)\\s+(NAME)\\s+(NAME)",
             "beginCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "2": { "name": "keyword.other.dylan" },
                 "5": { "name": "keyword.other.dylan" },
                 "6": { "name": "variable.other.dylan" }
             },
-            "end": "(?i:^(end)(\\s+(\\5))?(\\s+(\\6))?)",
+            "end": "(?i)^(end)(\\s+(\\5))?(\\s+(\\6))?",
             "endCaptures": {
                 "1": { "name": "keyword.other.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -204,7 +204,7 @@
         },
         "slot": {
             "name": "meta.definition.slot.dylan",
-            "begin": "(?i:^\\s+((NAME\\s+)*)(slot)\\s+(NAME)(\\s+(::)\\s+(NAME))?)",
+            "begin": "(?i)^\\s+((NAME\\s+)*)(slot)\\s+(NAME)(\\s+(::)\\s+(NAME))?",
             "beginCaptures": {
                 "1": { "name": "storage.modifier.dylan" },
                 "3": { "name": "keyword.other.dylan" },
@@ -212,13 +212,13 @@
                 "6": { "name": "meta.punctuation.dylan" },
                 "7": { "name": "storage.type.dylan" }
             },
-            "end": "(?i:(?=^.*slot|^\\S))",
+            "end": "(?i)(?=^.*slot|^\\S)",
             "patterns": [
                 { "include": "#body" }
             ]
         },
         "binding": {
-            "match": "(?i:(NAME) +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME))",
+            "match": "(?i)(NAME) +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME)",
             "captures": {
                 "1": { "name": "variable.other.dylan" },
                 "2": { "name": "meta.punctuation.dylan" },
@@ -227,7 +227,7 @@
         },
         "special-parameter-binding": {
             "comment": "must come before parameter-list-words",
-            "match": "(?i:(#rest|#key|#next) +(NAME)( +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME))?)",
+            "match": "(?i)(#rest|#key|#next) +(NAME)( +(::) +(false-or\\(NAME\\)|type-union\\(.*?\\)|NAME))?",
             "captures": {
                 "1": { "name": "keyword.control.dylan" },
                 "2": { "name": "variable.other.dylan" },
@@ -245,7 +245,7 @@
         },
         "parameter-list-words": {
             "comment": "must come after special-parameter-binding",
-            "match": "(?i:#next|#rest|#key|#all-keys)",
+            "match": "(?i)#next|#rest|#key|#all-keys",
             "name": "keyword.control.dylan"
         },
         "comment-line": {
@@ -284,15 +284,15 @@
             "name": "constant.character.escape.dylan"
         },
         "boolean": {
-            "match": "(?i:#t|#f)",
+            "match": "(?i)#t|#f",
             "name": "constant.language.dylan"
         },
         "hex-oct-bin": {
-            "match": "(?i:(#x[0-9a-f_]+|#o[0-7_]+|#b[01_]+))",
+            "match": "(?i)(#x[0-9a-f_]+|#o[0-7_]+|#b[01_]+)",
             "name": "constant.numeric.dylan"
         },
         "decimal": {
-            "match": "(?i:(([0-9_]+(\\.[0-9_]*)?)|(\\.[0-9_]+))([desx][+-]?[0-9_]+)?)",
+            "match": "(?i)(([0-9_]+(\\.[0-9_]*)?)|(\\.[0-9_]+))([desx][+-]?[0-9_]+)?",
             "name": "constant.numeric.dylan"
         },
         "character": {
