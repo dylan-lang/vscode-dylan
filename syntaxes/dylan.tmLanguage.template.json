@@ -188,6 +188,7 @@
             "patterns": [
                 { "include": "#comment-line" },
                 { "include": "#comment-block" },
+                { "include": "#method" },
                 { "include": "#binding" },
                 { "include": "#string" },
                 { "include": "#raw-string" },
@@ -200,6 +201,20 @@
                 { "include": "#drm-definer-words" },
                 { "include": "#drm-classes" },
                 { "include": "#drm-functions" }
+            ]
+        },
+        "method": {
+            "name": "meta.definition.local-method.dylan",
+            "begin": "(?i)(?<=[ (,])(method)( +NAME?)? *\\(",
+            "beginCaptures": {
+                "1": { "name": "keyword.control.dylan" },
+                "2": { "name": "variable.other.dylan" }
+            },
+            "end": "\\)",
+            "patterns": [
+                { "include": "#binding" },
+                { "include": "#special-parameter-binding" },
+                { "include": "#untyped-parameter-binding" }
             ]
         },
         "slot": {
@@ -236,8 +251,8 @@
             }
         },
         "untyped-parameter-binding": {
-            "comment": "this is a very broad rule so only used in define generic, which has no body",
-            "match": "(?<=[,(]) *(NAME)([,)])",
+            "comment": "this is a very broad and should only be used within parameter lists",
+            "match": "(?<=[,(]) *(NAME)(?=[,)])",
             "captures": {
                 "1": { "name": "variable.other.dylan" },
                 "2": { "name": "meta.punctuation.dylan" }
