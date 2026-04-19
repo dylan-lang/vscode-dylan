@@ -198,6 +198,7 @@
                 { "include": "#hex-oct-bin" },
                 { "include": "#decimal" },
                 { "include": "#character" },
+                { "include": "#non-local-exit-words" },
                 { "include": "#drm-control-flow-words" },
                 { "include": "#drm-definer-words" },
                 { "include": "#drm-classes" },
@@ -321,6 +322,11 @@
         "character": {
             "match": "'((\\\\(<[0-9a-fA-F]+?>|[\\\\'\"abefnrt0]))|[^\\\\])'",
             "name": "constant.character.dylan"
+        },
+        "non-local-exit-words": {
+            "comment": "return and break are commonly used as block exit variables",
+            "match": "(?<=^|[,.()\\s])(break|error|return|signal)(?=$|[;,()\\s])",
+            "name": "keyword.control.non-local-exit.dylan"
         },
         "drm-control-flow-words": {
             "match": "(?<=^|[,.()\\s])(above|afterwards|begin|below|block|by|case|cleanup|else|elseif|end|exception|finally|for|from|keyed-by|if|in|otherwise|select|then|to|unless|until:?|using|when|while:?)(?=$|[;,()\\s])",
