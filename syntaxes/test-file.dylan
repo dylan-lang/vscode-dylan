@@ -48,7 +48,9 @@ define thread variable *ttt*     = #"ttt";         // comment
 define constant $pi :: <double>  = #x13A * 1.0d-2;     // comment
 define variable *var*           // comment
   = begin                       // comment
-      let x = f();              // comment
+      let x = f();
+      let x :: <y> = f();
+      let (x, y, z :: <int>) = f();   // comment
       x + y                     // comment
     end;                        // comment
 

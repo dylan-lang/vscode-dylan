@@ -190,6 +190,8 @@
                 { "include": "#comment-block" },
                 { "include": "#method" },
                 { "include": "#block" },
+                { "include": "#let" },
+                { "include": "#let-values" },
                 { "include": "#binding" },
                 { "include": "#string" },
                 { "include": "#raw-string" },
@@ -265,6 +267,28 @@
             "match": "(?i)#next|#rest|#key|#all-keys",
             "name": "keyword.control.dylan"
         },
+        "let": {
+            "comment": "Match `let x =`. The 'binding' rule matches typed variables.",
+            "match": "(?i)(?<=[ (,])(let) +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)( +:: +((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*))?",
+            "captures": {
+                "1": { "name": "keyword.other.dylan" },
+                "2": { "name": "variable.other.dylan" },
+                "4": { "name": "variable.other.dylan" }
+            }
+        },
+        "let-values": {
+            "name": "meta.definition..dylan",
+            "begin": "(?i)(?<=[ (,])(let) +\\(",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" }
+            },
+            "end": "\\)",
+            "patterns": [
+                { "include": "#binding" },
+                { "include": "#special-parameter-binding" },
+                { "include": "#untyped-parameter-binding" }
+            ]
+        },
         "block": {
             "match": "(?i)(?<=[ (,])(block) +\\(((?i:[a-z]|[0-9]+[a-z][a-z]|[!&*<>|^$%@_]+[a-z])[-+~?/=!&*<>|^$%@_a-z0-9]*)?\\)",
             "captures": {
@@ -324,8 +348,8 @@
             "name": "constant.character.dylan"
         },
         "non-local-exit-words": {
-            "comment": "return and break are commonly used as block exit variables",
-            "match": "(?<=^|[,.()\\s])(break|error|return|signal)(?=$|[;,()\\s])",
+            "comment": "return, exit, and break (in that order) are common block exit variables",
+            "match": "(?<=^|[,.()\\s])(break|error|exit|return|signal)(?=$|[;,()\\s])",
             "name": "keyword.control.non-local-exit.dylan"
         },
         "drm-control-flow-words": {

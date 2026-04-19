@@ -190,6 +190,8 @@
                 { "include": "#comment-block" },
                 { "include": "#method" },
                 { "include": "#block" },
+                { "include": "#let" },
+                { "include": "#let-values" },
                 { "include": "#binding" },
                 { "include": "#string" },
                 { "include": "#raw-string" },
@@ -264,6 +266,28 @@
             "comment": "must come after special-parameter-binding",
             "match": "(?i)#next|#rest|#key|#all-keys",
             "name": "keyword.control.dylan"
+        },
+        "let": {
+            "comment": "Match `let x =`. The 'binding' rule matches typed variables.",
+            "match": "(?i)(?<=[ (,])(let) +(NAME)( +:: +(NAME))?",
+            "captures": {
+                "1": { "name": "keyword.other.dylan" },
+                "2": { "name": "variable.other.dylan" },
+                "4": { "name": "variable.other.dylan" }
+            }
+        },
+        "let-values": {
+            "name": "meta.definition..dylan",
+            "begin": "(?i)(?<=[ (,])(let) +\\(",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.dylan" }
+            },
+            "end": "\\)",
+            "patterns": [
+                { "include": "#binding" },
+                { "include": "#special-parameter-binding" },
+                { "include": "#untyped-parameter-binding" }
+            ]
         },
         "block": {
             "match": "(?i)(?<=[ (,])(block) +\\((NAME)?\\)",
