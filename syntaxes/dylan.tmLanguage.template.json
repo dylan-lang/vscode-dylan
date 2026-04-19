@@ -189,6 +189,7 @@
                 { "include": "#comment-line" },
                 { "include": "#comment-block" },
                 { "include": "#method" },
+                { "include": "#block" },
                 { "include": "#binding" },
                 { "include": "#string" },
                 { "include": "#raw-string" },
@@ -262,6 +263,13 @@
             "comment": "must come after special-parameter-binding",
             "match": "(?i)#next|#rest|#key|#all-keys",
             "name": "keyword.control.dylan"
+        },
+        "block": {
+            "match": "(?i)(?<=[ (,])(block) +\\((NAME)?\\)",
+            "captures": {
+                "1": { "name": "keyword.control.dylan" },
+                "2": { "name": "variable.other.dylan" }
+            }
         },
         "comment-line": {
             "match": "//.*$",

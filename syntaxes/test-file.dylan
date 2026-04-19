@@ -102,10 +102,12 @@ define open abstract class <c> (<d>, <e>) // c should be variable, d and e inher
   constant sealed slot foo = #b1010_0000;      // b
   slot %bar,                                   // c
     init-value: method (x)                     // d
-                  local method m (y) => (z)    // e
-                          x * y                // f
-                        end;                   // g
-                  m                            // h
+                  block (return)               // k
+                    local method m (y) => (z)  // e
+                            x * y              // f
+                          end;                 // g
+                    return(m)                  // h
+                  end                          // l
                 end;                           // i
 end class <c>;                                 // j
 
