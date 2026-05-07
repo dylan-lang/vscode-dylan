@@ -60,18 +60,17 @@ export function activateLsp (_context: vscode.ExtensionContext): void {
       }
     }
     mkdtemp(path.join(tmpdir(), 'dylan-lsp-'), (err, folder) => {
-      if (err != null) { throw err }
-      const logfile = path.join(folder, 'dylan-lsp-server.log')
-      const logarg = ['--log', logfile]
+      if (err != null) {
+        throw err
+      }
       const serverOptions: ServerOptions = {
         run: {
           command: serverExe,
-          args: logarg,
           options: runOptions
         },
         debug: {
           command: serverExe,
-          args: ['--debug-server', ...logarg],
+          args: ['--debug-server', '--debug-opendylan'],
           options: runOptions
         }
       }
